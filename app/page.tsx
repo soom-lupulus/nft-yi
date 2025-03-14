@@ -2,13 +2,14 @@ import React from 'react'
 
 //
 import Style from './index.module.css'
-import { HeroSection, Service } from '@/components'
+import { BigNFTSlider, HeroSection, Service } from '@/components'
 
 const Home = () => {
     return (
         <div className={Style.homePage}>
             <HeroSection />
             <Service />
+            <BigNFTSlider />
         </div>
     )
 }

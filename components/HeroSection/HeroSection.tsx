@@ -15,7 +15,10 @@ const HeroSection = () => {
                         Discover the most outstanding NFTs in all topic of
                         life.Creative your NFTs and sell them
                     </p>
-                    <Button btnName='Start your search' handleClick={() => {}}></Button>
+                    <Button
+                        btnName='Start your search'
+                        handleClick={() => {}}
+                    ></Button>
                 </div>
                 <div className={Style.heroSection_box_right}>
                     <Image
@@ -23,6 +26,10 @@ const HeroSection = () => {
                         alt='hero section'
                         width={600}
                         height={600}
+                        style={{
+                            width: '100%',
+                            height: 'auto',
+                        }}
                     ></Image>
                 </div>
             </div>
