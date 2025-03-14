@@ -2,7 +2,13 @@ import React from 'react'
 
 //
 import Style from './index.module.css'
-import { BigNFTSlider, HeroSection, Service, Subscribe } from '@/components'
+import {
+    BigNFTSlider,
+    HeroSection,
+    Service,
+    Subscribe,
+    Title,
+} from '@/components'
 
 const Home = () => {
     return (
@@ -11,6 +17,10 @@ const Home = () => {
             <Service />
             <BigNFTSlider />
             <Subscribe />
+            <Title
+                heading='Browser by category'
+                paragraph='Explore the NFTs in the most featured categories.'
+            />
         </div>
     )
 }
