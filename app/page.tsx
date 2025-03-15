@@ -8,6 +8,7 @@ import {
     Service,
     Subscribe,
     Title,
+    Category,
 } from '@/components'
 
 const Home = () => {
@@ -16,11 +17,12 @@ const Home = () => {
             <HeroSection />
             <Service />
             <BigNFTSlider />
-            <Subscribe />
             <Title
                 heading='Browser by category'
                 paragraph='Explore the NFTs in the most featured categories.'
             />
+            <Category />
+            <Subscribe />
         </div>
     )
 }
