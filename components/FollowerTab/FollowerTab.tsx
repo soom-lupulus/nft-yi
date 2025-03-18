@@ -1,22 +1,18 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import {
-    BsFillAlarmFill,
-    BsFillCalendarDateFill,
-    BsCalendar3,
-} from 'react-icons/bs'
+    RiUserFollowFill,
+    RiUserUnfollowFill,
+    RiAwardLine,
+} from 'react-icons/ri'
 
 //INTERNAL IMPORT
-import Style from './Collection.module.css'
-import DaysComponent from './DaysComponents/DaysComponents'
-import images from '@/img'
+import Style from './FollowerTab.module.css'
+import FollowerTabCard from './FollowerTabCard/FollowerTabCard'
+import images from '../../img'
 import { ImageType } from '@/typings/global'
 
-const Collection = () => {
-    const [popular, setPopular] = useState(true)
-    const [following, setFollowing] = useState(false)
-    const [news, setNews] = useState(false)
-
+const FollowerTab = () => {
     const CardArray: ImageType[] = [
         {
             background: images.creatorbackground1,
@@ -51,7 +47,7 @@ const Collection = () => {
             user: images.user8,
         },
     ]
-    const newsArray: ImageType[] = [
+    const FollowingArray: ImageType[] = [
         {
             background: images.creatorbackground3,
             user: images.user3,
@@ -77,7 +73,7 @@ const Collection = () => {
             user: images.user2,
         },
     ]
-    const followingArray: ImageType[] = [
+    const NewsArray: ImageType[] = [
         {
             background: images.creatorbackground1,
             user: images.user1,
@@ -112,6 +108,10 @@ const Collection = () => {
         },
     ]
 
+    const [popular, setPopular] = useState(true)
+    const [following, setFollowing] = useState(false)
+    const [news, setNews] = useState(false)
+
     const openPopular = () => {
         if (!popular) {
             setPopular(true)
@@ -119,7 +119,6 @@ const Collection = () => {
             setNews(false)
         }
     }
-
     const openFollower = () => {
         if (!following) {
             setPopular(false)
@@ -127,7 +126,6 @@ const Collection = () => {
             setNews(false)
         }
     }
-
     const openNews = () => {
         if (!news) {
             setPopular(false)
@@ -135,49 +133,58 @@ const Collection = () => {
             setNews(true)
         }
     }
+
     return (
-        <div className={Style.collection}>
-            <div className={Style.collection_title}>
-                <h2>Top List Creators</h2>
-                <div className={Style.collection_collections}>
-                    <div className={Style.collection_collections_btn}>
+        <div className={Style.followerTab}>
+            <div className={Style.followerTab_title}>
+                <h2> Top Creators List..</h2>
+                <div className={Style.followerTab_tabs}>
+                    <div className={Style.followerTab_tabs_btn}>
                         <button onClick={() => openPopular()}>
-                            <BsFillAlarmFill /> 24 hours
+                            <RiUserFollowFill /> Popular
                         </button>
                         <button onClick={() => openFollower()}>
-                            <BsCalendar3 /> 7 days
+                            <RiUserFollowFill /> Following
                         </button>
                         <button onClick={() => openNews()}>
-                            <BsFillCalendarDateFill /> 30 days
+                            <RiAwardLine /> NoteWorthy
                         </button>
                     </div>
                 </div>
             </div>
+
             {popular && (
-                <div className={Style.collection_box}>
+                <div className={Style.followerTab_box}>
                     {CardArray.map((el, i) => (
-                        <DaysComponent key={i + 1} i={i} el={el} />
+                        <FollowerTabCard key={i + 1} i={i} el={el} />
                     ))}
                 </div>
             )}
 
             {following && (
-                <div className={Style.collection_box}>
-                    {followingArray.map((el, i) => (
-                        <DaysComponent key={i + 1} i={i} el={el} />
+                <div className={Style.followerTab_box}>
+                    {FollowingArray.map((el, i) => (
+                        <FollowerTabCard key={i + 1} i={i} el={el} />
                     ))}
                 </div>
             )}
 
             {news && (
-                <div className={Style.collection_box}>
-                    {newsArray.map((el, i) => (
-                        <DaysComponent key={i + 1} i={i} el={el} />
+                <div className={Style.followerTab_box}>
+                    {NewsArray.map((el, i) => (
+                        <FollowerTabCard key={i + 1} i={i} el={el} />
                     ))}
                 </div>
             )}
+
+            <div className={Style.followerTab_member}>
+                <div className={Style.followerTab_member_box}>
+                    <a href='#'>Show me more</a>
+                    <a href='#'>Become, author</a>
+                </div>
+            </div>
         </div>
     )
 }
 
-export default Collection
+export default FollowerTab
