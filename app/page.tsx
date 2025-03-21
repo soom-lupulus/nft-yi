@@ -15,6 +15,7 @@ import {
     FollowerTab,
     AudioLive,
     Slider,
+    Brand
 } from '@/components'
 
 const Home = () => {
@@ -42,6 +43,7 @@ const Home = () => {
                 paragraph='Explore the NFTs in the most featured categories.'
             />
             <Category />
+            <Brand />
             <Subscribe />
         </div>
     )
