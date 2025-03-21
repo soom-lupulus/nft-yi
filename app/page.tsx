@@ -15,7 +15,8 @@ import {
     FollowerTab,
     AudioLive,
     Slider,
-    Brand
+    Brand,
+    Video
 } from '@/components'
 
 const Home = () => {
@@ -44,6 +45,7 @@ const Home = () => {
             />
             <Category />
             <Brand />
+            <Video />
             <Subscribe />
         </div>
     )
