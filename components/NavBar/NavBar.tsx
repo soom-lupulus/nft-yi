@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 // icon
@@ -11,8 +11,10 @@ import Style from './NavBar.module.css'
 import { Discover, HelpCenter, Notification, Profile, SideBar } from './index'
 import { Button } from '@/components'
 import images from '@/img'
+import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 
 const NavBar = () => {
+    const { currentAccount, connectWallect } = useContext(NFTMarketplaceContext)
     const [discover, setDiscover] = useState(false)
     const [help, setHelp] = useState(false)
     const [notification, setNotification] = useState(false)
@@ -21,8 +23,8 @@ const NavBar = () => {
 
     const openMenu = (e: React.MouseEvent<HTMLParagraphElement>) => {
         const btnText = e.currentTarget.innerText
-        console.log(btnText);
-        
+        console.log(btnText)
+
         if (btnText === 'Discover') {
             setDiscover(true)
             setHelp(false)
@@ -134,7 +136,19 @@ const NavBar = () => {
                     </div>
                     {/* button */}
                     <div className={Style.navbar_container_right_button}>
-                        <Button btnName='Create' handleClick={() => {}} />
+                        {currentAccount ? (
+                            <Link href={'/upload-nft'}>
+                                <Button
+                                    btnName='Create'
+                                    handleClick={() => {}}
+                                />
+                            </Link>
+                        ) : (
+                            <Button
+                                btnName='Connect'
+                                handleClick={connectWallect}
+                            />
+                        )}
                     </div>
                     {/* user profile */}
                     <div className={Style.navbar_container_right_profile_box}>

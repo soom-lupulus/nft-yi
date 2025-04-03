@@ -11,6 +11,11 @@ const contractName = 'NFTMarketplace';
     console.log(`---执行部署${contractName}合约---`)
     // 等待部署
     await nftMarketplace.waitForDeployment()
+    // 获取合约地址
+    const nftMarketplaceAddress = nftMarketplace.target
+    console.log(
+        `---${contractName}合约部署成功，合约地址为：${nftMarketplaceAddress}---`,
+    )
 
 })()
     .then()

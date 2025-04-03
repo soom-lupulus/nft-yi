@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { GrClose } from 'react-icons/gr'
@@ -17,12 +17,17 @@ import { TbDownloadOff } from 'react-icons/tb'
 import images from '@/img'
 import Style from './SideBar.module.css'
 import Button from '@/components/Button/Button'
+import {
+    NFTMarketplaceContext,
+    NFTMarketplaceContextType,
+} from '@/context/NFTMarketplaceContext'
 
 type IPropTypes = {
     setOpenSideMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const sideBar = ({ setOpenSideMenu }: IPropTypes) => {
+    const { connectWallect, currentAccount } = useContext(NFTMarketplaceContext)
     const [openDiscover, setOpenDiscover] = useState(false)
     const [openHelp, setOpenHelp] = useState(false)
     const discover = [
@@ -175,7 +180,13 @@ const sideBar = ({ setOpenSideMenu }: IPropTypes) => {
             </div>
 
             <div className={Style.sideBar_button}>
-                <Button btnName='Create' handleClick={() => {}} />
+                {currentAccount ? (
+                    <Link href={'/upload-nft'}>
+                        <Button btnName='Create' handleClick={closeSideBar} />
+                    </Link>
+                ) : (
+                    <Button btnName='Connect' handleClick={connectWallect} />
+                )}
                 <Button btnName='Connect Wallet' handleClick={() => {}} />
             </div>
         </div>

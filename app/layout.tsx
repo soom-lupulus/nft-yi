@@ -1,8 +1,9 @@
-import type { Metadata, Viewport} from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 // internal
 import { Footer, NavBar } from '@/components'
+import { NFTMarketplaceProvider } from '@/context/NFTMarketplaceContext'
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -20,13 +21,12 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  minimumScale: 1,
-  userScalable: false,
-};
-
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    minimumScale: 1,
+    userScalable: false,
+}
 
 export default function RootLayout({
     children,
@@ -38,9 +38,11 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <NavBar />
-                {children}
-                <Footer />
+                <NFTMarketplaceProvider>
+                    <NavBar />
+                    {children}
+                    <Footer />
+                </NFTMarketplaceProvider>
             </body>
         </html>
     )
