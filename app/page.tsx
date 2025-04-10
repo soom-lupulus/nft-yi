@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 
 //
 import Style from './index.module.css'
@@ -18,14 +18,27 @@ import {
     Slider,
     Brand,
     Video,
+    Loading,
 } from '@/components'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 import useFetchNFTs from '@/hooks/useFetchNFTs'
-import { GridLoader } from 'react-spinners'
+import { getTopCreators } from '@/utils'
 
 const Home = () => {
     const { checkIfWalletConnected } = useContext(NFTMarketplaceContext)
     const { nfts, filterNFTsByName } = useFetchNFTs()
+
+    const creators = getTopCreators(nfts)
+    const topCreatorsArr = useMemo(() => {
+        let resArr = []
+        for (const [key, value] of Object.entries(creators)) {
+            resArr.push({
+                seller: key,
+                totalETHs: value,
+            })
+        }
+        return resArr
+    }, [creators])
 
     useEffect(() => {
         checkIfWalletConnected()
@@ -40,7 +53,7 @@ const Home = () => {
                 paragraph='Discover the most outstanding NFTs in all topics of life.'
             />
             <AudioLive />
-            <FollowerTab />
+            <FollowerTab creators={topCreatorsArr} />
             <Slider />
             <Collection />
             <Title
@@ -48,19 +61,7 @@ const Home = () => {
                 paragraph='Discover the most outstanding NFTs in all topics of life.'
             />
             <Filter />
-            {nfts.length ? (
-                <NFTCard NFTData={nfts} />
-            ) : (
-                <div style={{ display: 'flex', minHeight: '20rem' }}>
-                    <GridLoader
-                        cssOverride={{margin: 'auto'}}
-                        color={'var(--icons-color)'}
-                        size={20}
-                        aria-label='Loading Spinner'
-                        data-testid='loader'
-                    />
-                </div>
-            )}
+            {nfts.length ? <NFTCard NFTData={nfts} /> : <Loading />}
             <Title
                 heading='Browser by category'
                 paragraph='Explore the NFTs in the most featured categories.'

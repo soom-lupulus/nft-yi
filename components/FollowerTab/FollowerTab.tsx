@@ -12,7 +12,11 @@ import FollowerTabCard from './FollowerTabCard/FollowerTabCard'
 import images from '../../img'
 import { ImageType } from '@/typings/global'
 
-const FollowerTab = () => {
+const FollowerTab = ({
+    creators,
+}: {
+    creators: { seller: string; totalETHs: number }[]
+}) => {
     const CardArray: ImageType[] = [
         {
             background: images.creatorbackground1,
@@ -155,7 +159,7 @@ const FollowerTab = () => {
 
             {popular && (
                 <div className={Style.followerTab_box}>
-                    {CardArray.map((el, i) => (
+                    {creators.map((el, i) => (
                         <FollowerTabCard key={i + 1} i={i} el={el} />
                     ))}
                 </div>
@@ -163,7 +167,7 @@ const FollowerTab = () => {
 
             {following && (
                 <div className={Style.followerTab_box}>
-                    {FollowingArray.map((el, i) => (
+                    {creators.map((el, i) => (
                         <FollowerTabCard key={i + 1} i={i} el={el} />
                     ))}
                 </div>
@@ -171,7 +175,7 @@ const FollowerTab = () => {
 
             {news && (
                 <div className={Style.followerTab_box}>
-                    {NewsArray.map((el, i) => (
+                    {creators.map((el, i) => (
                         <FollowerTabCard key={i + 1} i={i} el={el} />
                     ))}
                 </div>

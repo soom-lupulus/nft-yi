@@ -47,6 +47,11 @@ a {
     text-decoration: none;
 }
 
+input,
+textarea {
+    color: var(--icons-color);
+}
+
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: none;
@@ -82,7 +87,7 @@ a {
     }
 }
 /* custom */
-.c_ellipsis{
+.c_ellipsis {
     display: inline-block;
     text-overflow: ellipsis;
     overflow: hidden;

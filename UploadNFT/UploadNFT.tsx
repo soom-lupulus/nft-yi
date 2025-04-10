@@ -5,7 +5,7 @@ import { FaPercent } from 'react-icons/fa'
 import { AiTwotonePropertySafety } from 'react-icons/ai'
 import { TiTick } from 'react-icons/ti'
 import Image from 'next/image'
-
+import { debounce } from 'lodash/fp'
 //
 import Style from './Upload.module.css'
 import formStyle from '../AccountPage/Form/Form.module.css'
@@ -30,7 +30,7 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
     const [category, setCategory] = useState(0)
     const [properties, setProperties] = useState('')
     const [image, setImage] = useState<string>('')
-    const [uploadResponse, setUploadResponse] = useState<UploadResponse | {}>()
+    const [uploadResponse, setUploadResponse] = useState<UploadResponse>({} as UploadResponse)
 
     const categoryArry = [
         {
@@ -232,15 +232,15 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                 <div className={Style.upload_box_btn}>
                     <Button
                         btnName='Upload'
-                        handleClick={async () =>
+                        handleClick={debounce(300)(async () =>
                             createNFT({
                                 price,
                                 description,
                                 image,
                                 name,
                                 uploadResponse,
-                            })
-                        }
+                            }),
+                        )}
                         classStyle={Style.upload_box_btn_style}
                     />
                     <Button

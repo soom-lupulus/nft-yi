@@ -9,19 +9,9 @@ import { MdVerified, MdTimer } from 'react-icons/md'
 import Style from './NFTCardTwo.module.css'
 import { LikeProfile } from '@/components'
 import Link from 'next/link'
+import { NFTInfoType } from '@/context/NFTMarketplaceContext'
 
-const NFTCardTwo = ({
-    NFTData,
-}: {
-    NFTData: {
-        cid: string
-        image: string
-        owner: string
-        price: string
-        seller: string
-        tokenId: bigint
-    }[]
-}) => {
+const NFTCardTwo = ({ NFTData }: { NFTData: NFTInfoType[] }) => {
     const [like, setLike] = useState(false)
     const [likeInc, setLikeInc] = useState(21)
 

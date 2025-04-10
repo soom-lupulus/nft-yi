@@ -1,6 +1,5 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
 import { BrowserProvider, ethers } from 'ethers'
 import { useRouter } from 'next/navigation'
 //
@@ -30,7 +29,6 @@ export type NFTMarketplaceContextType = {
     currentAccount: string
     checkIfWalletConnected: () => void
     connectWallect: () => void
-    listenWallet: () => () => unknown
     uploadToIPFS: (file: File) => Promise<UploadResponse>
     createNFT: (NFTData: {
         price: string
@@ -48,7 +46,16 @@ export type NFTMarketplaceContextType = {
     fetchNFTs: () => Promise<NFTInfoType[]>
     fetchMyNFTsOrListedNFTs: (
         type: 'fetchItemListed' | 'fetchMyNFTs',
-    ) => Promise<NFTInfoType[]>
+    ) => Promise<
+        {
+            cid: string
+            image: string
+            owner: string
+            seller: string
+            tokenId: bigint
+            price: string
+        }[]
+    >
     buyNFT: (nft: { price: string; tokenId: string }) => void
 }
 
@@ -90,41 +97,11 @@ const connectingWithSmartContract = async () => {
     }
 }
 
-async function getENSDetails(address: string) {
-    if (!window.ethereum) return
-    const provider = new BrowserProvider(window.ethereum)
-
-    // 1. 通过地址查找ENS名称
-    const name = await provider.lookupAddress(address)
-    if (!name) return null
-
-    // 2. 获取ENS解析器
-    const resolver = await provider.getResolver(name)
-    if (!resolver) return null
-
-    // 3. 获取各种记录
-    const [avatar, email, url, description] = await Promise.all([
-        resolver.getAvatar(),
-        resolver.getText('email'),
-        resolver.getText('url'),
-        resolver.getText('description'),
-    ])
-
-    return {
-        name,
-        avatar: avatar?.url || null,
-        email,
-        url,
-        description,
-    }
-}
-
 export const NFTMarketplaceContext =
     React.createContext<NFTMarketplaceContextType>({
         titleData: '',
         currentAccount: '',
         checkIfWalletConnected: () => {},
-        listenWallet: () => () => {},
         connectWallect: () => {},
         uploadToIPFS: (file: File) => Promise.resolve({} as UploadResponse),
         createNFT: (NFTData: {
@@ -136,7 +113,17 @@ export const NFTMarketplaceContext =
         }) => {},
         createSale: () => {},
         fetchNFTs: () => Promise.resolve([] as NFTInfoType[]),
-        fetchMyNFTsOrListedNFTs: () => Promise.resolve([] as NFTInfoType[]),
+        fetchMyNFTsOrListedNFTs: () =>
+            Promise.resolve(
+                [] as {
+                    cid: string
+                    image: string
+                    owner: string
+                    seller: string
+                    tokenId: bigint
+                    price: string
+                }[],
+            ),
         buyNFT: () => {},
     })
 
@@ -227,8 +214,14 @@ export const NFTMarketplaceProvider = ({
         }
 
         // 添加监听
-        window.ethereum.on('accountsChanged', handleAccountsChanged)
-        window.ethereum.on('chainChanged', handleChainChanged)
+        window.ethereum.on(
+            'accountsChanged',
+            handleAccountsChanged as (...args: unknown[]) => void,
+        )
+        window.ethereum.on(
+            'chainChanged',
+            handleChainChanged as (...args: unknown[]) => void,
+        )
 
         // 返回清理函数
         return cleanup
@@ -351,7 +344,6 @@ export const NFTMarketplaceProvider = ({
                 ),
             )
             const allFiles = await pinata.files.public.list()
-            console.log(allFiles)
             const f = allFiles.files.map(i => {
                 const target = formatData.find(j => j.cid === i.cid)
                 if (target) {
@@ -366,9 +358,10 @@ export const NFTMarketplaceProvider = ({
                     }
                 }
             })
-            return f.filter(Boolean).reverse()
+            return f.filter(Boolean).reverse() as NFTInfoType[]
         } catch (error) {
             console.log(error)
+            return []
         }
     }
 
@@ -378,7 +371,10 @@ export const NFTMarketplaceProvider = ({
     ) => {
         try {
             const contract = await connectingWithSmartContract()
-            if (!contract) return toast.error('合约获取失败！')
+            if (!contract) {
+                toast.error('合约获取失败！')
+                return []
+            }
             let data = null
             if (type === 'fetchItemListed') {
                 data = await contract.fetchItemListed()
@@ -394,7 +390,7 @@ export const NFTMarketplaceProvider = ({
                         price: unformattedPrice,
                     }) => {
                         const tokenURI = await contract.tokenURI(tokenId)
-                        const cid = tokenURI.match(/ipfs\/(.*)/)?.at(-1)
+                        const cid = tokenURI.match(/ipfs\/(.*)/)?.at(-1)!
                         return {
                             tokenId,
                             seller,
@@ -409,6 +405,7 @@ export const NFTMarketplaceProvider = ({
             return formatData
         } catch (error) {
             console.log(error)
+            return []
         }
     }
 
@@ -431,10 +428,10 @@ export const NFTMarketplaceProvider = ({
 
     useEffect(() => {
         const cleanup = listenWallet()
-        console.log('监听开始！');
-        
+        console.log('监听开始！')
+
         return () => {
-            cleanup()
+            typeof cleanup === 'function' && cleanup()
         }
     }, [])
 

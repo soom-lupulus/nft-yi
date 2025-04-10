@@ -6,16 +6,11 @@ import { TiTick } from 'react-icons/ti'
 
 //INTERNAL IMPORT
 import Style from './FollowerTabCard.module.css'
-import { ImageType } from '@/typings/global'
+import images from '@/img'
 
-type IFollowerTabCardProps = {
-    el: ImageType,
-    i: number
-}
-
-const FollowerTabCard = ({ i, el }: IFollowerTabCardProps) => {
+const FollowerTabCard = ({ i, el }) => {
     const [following, setFollowing] = useState(false)
-
+    
     const followMe = () => {
         if (!following) {
             setFollowing(true)
@@ -35,7 +30,7 @@ const FollowerTabCard = ({ i, el }: IFollowerTabCardProps) => {
                 <div className={Style.FollowerTabCard_box_img}>
                     <Image
                         className={Style.FollowerTabCard_box_img_img}
-                        src={el.background}
+                        src={images.creatorbackground2}
                         alt='profile braground'
                         width={500}
                         height={300}
@@ -49,19 +44,19 @@ const FollowerTabCard = ({ i, el }: IFollowerTabCardProps) => {
                         alt='profile picture'
                         width={50}
                         height={50}
-                        src={el.user}
+                        src={images.user2}
                     />
                 </div>
 
                 <div className={Style.FollowerTabCard_box_info}>
                     <div className={Style.FollowerTabCard_box_info_name}>
-                        <h4>
-                            Giada Mann{''}{' '}
+                        <h4 title={el.seller}>
+                            {el.seller?.slice(0,11) + '...'}{''}{' '}
                             <span>
                                 <MdVerified />
                             </span>
                         </h4>
-                        <p>12.321 ETH</p>
+                        <p>{el.totalETHs} ETH</p>
                     </div>
 
                     <div className={Style.FollowerTabCard_box_info_following}>

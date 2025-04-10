@@ -53,7 +53,7 @@ const Author = () => {
         owner: string,
         seller: string,
         tokenId: bigint,
-        unformattedPrice: bigint,
+        price: string,
     }[]>([])
     const [myNFTs, setMyNFTs] = useState<{
         cid: string,
@@ -61,17 +61,17 @@ const Author = () => {
         owner: string,
         seller: string,
         tokenId: bigint,
-        unformattedPrice: bigint,
+        price: string,
     }[]>([])
 
     useEffect(() => {
-        fetchMyNFTsOrListedNFTs('fetchItemListed').then(res => {
-            console.log(res);
-            setNFTs(res)
+        fetchMyNFTsOrListedNFTs('fetchItemListed').then(nfts => {
+            console.log(nfts);
+            setNFTs(nfts)
         })
-        fetchMyNFTsOrListedNFTs('fetchMyNFTs').then(res => {
-            console.log(res);
-            setMyNFTs(res)
+        fetchMyNFTsOrListedNFTs('fetchMyNFTs').then(nfts => {
+            console.log(nfts);
+            setMyNFTs(nfts)
         })
     }, [])
 
