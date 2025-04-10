@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import toast, { Toaster } from 'react-hot-toast';
 // internal
 import { Footer, NavBar } from '@/components'
 import { NFTMarketplaceProvider } from '@/context/NFTMarketplaceContext'
@@ -42,6 +43,7 @@ export default function RootLayout({
                     <NavBar />
                     {children}
                     <Footer />
+                    <Toaster />
                 </NFTMarketplaceProvider>
             </body>
         </html>

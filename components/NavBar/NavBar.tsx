@@ -12,9 +12,11 @@ import { Discover, HelpCenter, Notification, Profile, SideBar } from './index'
 import { Button } from '@/components'
 import images from '@/img'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
+import { DiJqueryLogo } from 'react-icons/di'
 
 const NavBar = () => {
-    const { currentAccount, connectWallect } = useContext(NFTMarketplaceContext)
+    const { currentAccount, connectWallect, checkIfWalletConnected } =
+        useContext(NFTMarketplaceContext)
     const [discover, setDiscover] = useState(false)
     const [help, setHelp] = useState(false)
     const [notification, setNotification] = useState(false)
@@ -73,17 +75,18 @@ const NavBar = () => {
         }
     }
 
+    useEffect(() => {
+        checkIfWalletConnected()
+    }, [])
+
     return (
         <div className={Style.navbar}>
             <div className={Style.navbar_container}>
                 <div className={Style.navbar_container_left}>
                     <div className={Style.logo}>
-                        <Image
-                            src={images.logo}
-                            alt='NFT Market place'
-                            width={100}
-                            height={100}
-                        />
+                        <Link href={{ pathname: '/' }}>
+                            <DiJqueryLogo size={30}/>
+                        </Link>
                     </div>
                     <div className={Style.navbar_container_left_box_input}>
                         <div
@@ -161,7 +164,7 @@ const NavBar = () => {
                                 onClick={() => openProfile()}
                                 className={Style.navbar_container_right_profile}
                             />
-                            {profile && <Profile />}
+                            {profile && <Profile currentAccount={currentAccount}/>}
                         </div>
                     </div>
                     {/* menu button */}

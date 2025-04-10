@@ -1,7 +1,6 @@
-// 0x5FbDB2315678afecb367f032d93F642f64180aa3
-import nftMarketplace from './NFTMarketplace.json'
+import nftMarketplace from '@/contract/artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
 
-export const nftMarketplaceAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+export const nftMarketplaceAddress = '0x0165878A594ca255338adfa4d48449f69242Eb8F'
 export const nftMarketplaceAbi = nftMarketplace.abi
 /**
  * @link https://ethereum.org/en/developers/docs/apis/json-rpc/

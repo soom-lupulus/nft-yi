@@ -1,5 +1,6 @@
 'use client'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { CSSProperties } from 'react'
+import { ClipLoader, ClimbingBoxLoader, GridLoader } from 'react-spinners'
 
 //INTRNAL IMPORT
 import Style from './search.module.css'
@@ -9,12 +10,14 @@ import { Filter } from '@/components'
 
 import { NFTCardTwo, Banner } from '@/collectionPage/collectionIndex'
 import images from '@/img'
-import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
+import useFetchNFTs from '@/hooks/useFetchNFTs'
 
 const searchPage = () => {
-    const { fetchNFTs } = useContext(NFTMarketplaceContext)
-    const [nfts, setNFTs] = useState<unknown[]>([])
-    const [nftsCopy, setNFTsCopy] = useState<unknown[]>([])
+    const { nfts, filterNFTsByName } = useFetchNFTs()
+
+    const override: CSSProperties = {
+        margin: 'auto'
+    }
     const collectionArray = [
         images.nft_image_1,
         images.nft_image_2,
@@ -26,29 +29,24 @@ const searchPage = () => {
         images.nft_image_2,
     ]
 
-    const filterNFTsByName = useCallback((name: string) => {
-      const filteredNFTs = nfts.filter(n => {
-        const b = n.name.toLowerCase().includes(name.toLowerCase())
-        console.log(b);
-        
-        return b
-      })
-      !name ? setNFTs(nftsCopy) : setNFTs(filteredNFTs)
-    }, [nfts])
-
-    useEffect(() => {
-      fetchNFTs().then(res => {
-        console.log(res);
-        setNFTs(res)
-        setNFTsCopy(res)
-      })
-    }, [])
     return (
         <div className={Style.searchPage}>
             <Banner bannerImage={images.creatorbackground2} />
-            <SearchBar filterNFTsByName={filterNFTsByName}/>
+            <SearchBar filterNFTsByName={filterNFTsByName} />
             <Filter />
-            <NFTCardTwo NFTData={nfts} />
+            {nfts.length ? (
+                <NFTCardTwo NFTData={nfts} />
+            ) : (
+                <div style={{ display: 'flex', minHeight: '20rem' }}>
+                    <GridLoader
+                        cssOverride={override}
+                        color={'var(--icons-color)'}
+                        size={20}
+                        aria-label='Loading Spinner'
+                        data-testid='loader'
+                    />
+                </div>
+            )}
             <Slider />
             <Brand />
         </div>

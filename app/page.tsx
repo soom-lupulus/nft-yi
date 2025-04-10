@@ -20,9 +20,13 @@ import {
     Video,
 } from '@/components'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
+import useFetchNFTs from '@/hooks/useFetchNFTs'
+import { GridLoader } from 'react-spinners'
 
 const Home = () => {
     const { checkIfWalletConnected } = useContext(NFTMarketplaceContext)
+    const { nfts, filterNFTsByName } = useFetchNFTs()
+
     useEffect(() => {
         checkIfWalletConnected()
     }, [])
@@ -44,7 +48,19 @@ const Home = () => {
                 paragraph='Discover the most outstanding NFTs in all topics of life.'
             />
             <Filter />
-            <NFTCard />
+            {nfts.length ? (
+                <NFTCard NFTData={nfts} />
+            ) : (
+                <div style={{ display: 'flex', minHeight: '20rem' }}>
+                    <GridLoader
+                        cssOverride={{margin: 'auto'}}
+                        color={'var(--icons-color)'}
+                        size={20}
+                        aria-label='Loading Spinner'
+                        data-testid='loader'
+                    />
+                </div>
+            )}
             <Title
                 heading='Browser by category'
                 paragraph='Explore the NFTs in the most featured categories.'

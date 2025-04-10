@@ -16,12 +16,19 @@ contract NFTMarketplace is ERC721URIStorage {
 
     uint256 listingPrice = 0.0015 ether;
 
+    /**
+     * 
+     * @param tokenId NFT的id
+     * @param seller 卖家
+     * @param owner NFT持有人（1.合约，2.用户）
+     * @param price 出售价格
+     * @param sold 是否正在出售
+     */
     struct MarketItem {
         uint256 tokenId;
         address payable seller;
         address payable owner;
         uint256 price;
-        // 出售状态
         bool sold;
     }
 
@@ -88,6 +95,11 @@ contract NFTMarketplace is ERC721URIStorage {
         );
     }
 
+    /**
+     * 用户上架NFT以出售
+     * @param tokenId NFT的id
+     * @param price NFT的价格
+     */
     function resellToken(uint256 tokenId, uint256 price) public payable {
         require(
             idMarketItem[tokenId].owner == msg.sender,
@@ -118,7 +130,7 @@ contract NFTMarketplace is ERC721URIStorage {
         );
         idMarketItem[tokenId].owner = payable(msg.sender);
         idMarketItem[tokenId].sold = true;
-        idMarketItem[tokenId].owner = payable(address(0));
+        idMarketItem[tokenId].seller = payable(address(0));
         ++_itemsSold;
         _transfer(address(this), msg.sender, tokenId);
         // 支付手续费
@@ -127,7 +139,8 @@ contract NFTMarketplace is ERC721URIStorage {
     }
 
     /**
-     * 获取所有未交易的NFT
+     * 获取合约中正在卖的所有NFT
+     * - 给买家浏览市场上所有可购买的NFT
      */
     function fetchMarketItem() public view returns (MarketItem[] memory) {
         uint256 itemCount = _tokenIds;
@@ -146,9 +159,12 @@ contract NFTMarketplace is ERC721URIStorage {
     }
 
     /**
-     * 获取用户的NFT
+     * 获取我实际拥有的NFT
+     * - 铸造后从未出售过的NFT
+     * - 从市场买来的NFT
+     * - 曾经出售过但又买回来的NFT
      */
-    function fetchMyNFT() public view returns(MarketItem[] memory){
+    function fetchMyNFTs() public view returns(MarketItem[] memory){
         uint myNFTTotalNum = 0;
         for(uint256 i = 0; i < _tokenIds; ++i){
             if(idMarketItem[i+1].owner == msg.sender){
@@ -159,13 +175,16 @@ contract NFTMarketplace is ERC721URIStorage {
         uint256 myNFTItemsIndex = 0;
         for(uint256 j = 0; j < _tokenIds; ++j){
             if(idMarketItem[j+1].owner == msg.sender){
-                myNFTItems[++myNFTItemsIndex] = idMarketItem[j+1];
+                myNFTItems[myNFTItemsIndex++] = idMarketItem[j+1];
             }
         }
         return myNFTItems;
     }
+    
     /**
-     * 获取我出售的NFT
+     * 获取我挂单但还没卖出去的NFT
+     * - 正在市场上挂着卖的
+     * - 之前挂过但后来下架的
      */
     function fetchItemListed() public view returns(MarketItem[] memory){
         uint itemCount = 0;
