@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         pathname: '/ipfs/**',
       },
     ],
-  },
+  }
 };
 
 export default nextConfig;

@@ -22,7 +22,6 @@ const DaysComponents = ({ el, i }: IDaysComponentsPropsType) => {
                         alt='profile background'
                         width={500}
                         height={300}
-                        objectFit='covers'
                     />
                 </div>
 
@@ -33,7 +32,6 @@ const DaysComponents = ({ el, i }: IDaysComponentsPropsType) => {
                         width={200}
                         height={200}
                         className={Style.daysComponent_box_img_1}
-                        objectFit='covers'
                     />
                     <Image
                         src={images.creatorbackground2}
@@ -41,7 +39,6 @@ const DaysComponents = ({ el, i }: IDaysComponentsPropsType) => {
                         width={200}
                         height={200}
                         className={Style.daysComponent_box_img_2}
-                        objectFit='covers'
                     />
                     <Image
                         src={images.creatorbackground2}
@@ -49,7 +46,6 @@ const DaysComponents = ({ el, i }: IDaysComponentsPropsType) => {
                         width={200}
                         height={200}
                         className={Style.daysComponent_box_img_3}
-                        objectFit='covers'
                     />
                 </div>
 
@@ -66,7 +62,6 @@ const DaysComponents = ({ el, i }: IDaysComponentsPropsType) => {
                                 alt='profile'
                                 width={30}
                                 height={30}
-                                objectFit='covers'
                                 className={
                                     Style.daysComponent_box_title_info_profile_img
                                 }

@@ -1,5 +1,14 @@
+'use client'
 import React from 'react'
-import { GridLoader } from 'react-spinners'
+import dynamic from 'next/dynamic'
+
+const GridLoader = dynamic(
+    () => import('react-spinners').then((mod) => mod.GridLoader),
+    { 
+      ssr: false,
+      loading: () => <div style={{ minHeight: '20rem' }} />
+    }
+  )
 
 const Loading = () => {
     return (

@@ -10,7 +10,7 @@ import images from '@/img'
 
 const FollowerTabCard = ({ i, el }) => {
     const [following, setFollowing] = useState(false)
-    
+
     const followMe = () => {
         if (!following) {
             setFollowing(true)
@@ -34,7 +34,6 @@ const FollowerTabCard = ({ i, el }) => {
                         alt='profile braground'
                         width={500}
                         height={300}
-                        objectFit='cover'
                     />
                 </div>
 
@@ -51,7 +50,8 @@ const FollowerTabCard = ({ i, el }) => {
                 <div className={Style.FollowerTabCard_box_info}>
                     <div className={Style.FollowerTabCard_box_info_name}>
                         <h4 title={el.seller}>
-                            {el.seller?.slice(0,11) + '...'}{''}{' '}
+                            {el.seller?.slice(0, 11) + '...'}
+                            {''}{' '}
                             <span>
                                 <MdVerified />
                             </span>
