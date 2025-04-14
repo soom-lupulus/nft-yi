@@ -8,13 +8,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  title  String
-  userId String @db.ObjectId
-}
-
-model User {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  email String
+model Nft {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String  @unique
+  price  String?
+  rating Float   @default(4.5)
 }
