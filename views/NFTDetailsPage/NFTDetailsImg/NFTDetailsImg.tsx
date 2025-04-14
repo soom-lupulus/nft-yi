@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation'
 
 //INTERNAL IMPORT
 import Style from './NFTDetailsImg.module.css'
-import images from '../../img'
+import images from '@/img'
 
 const NFTDetailsImg = () => {
     const [description, setDescription] = useState(true)
@@ -80,7 +80,7 @@ const NFTDetailsImg = () => {
                     className={Style.NFTDetailsImg_box_description}
                     onClick={() => openDescription()}
                 >
-                    <p style={{color: 'var(--main-bg-color)'}}>Description</p>
+                    <p style={{ color: 'var(--main-bg-color)' }}>Description</p>
                     {description ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
                 </div>
 
@@ -94,7 +94,7 @@ const NFTDetailsImg = () => {
                     className={Style.NFTDetailsImg_box_details}
                     onClick={() => openDetails()}
                 >
-                    <p style={{color: 'var(--main-bg-color)'}}>Details</p>
+                    <p style={{ color: 'var(--main-bg-color)' }}>Details</p>
                     {details ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
                 </div>
 

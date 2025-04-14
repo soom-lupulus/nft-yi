@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 
 //
 import Style from './upload-nft.module.css'
-import { UploadNFT } from '@/UploadNFT'
+import { UploadNFT } from '@/views/UploadNFT'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 
 const UploadNFTPage = () => {
@@ -29,7 +29,10 @@ const UploadNFTPage = () => {
                 </div>
 
                 <div className={Style.uploadNFT_box_form}>
-                    <UploadNFT uploadToIPFS={uploadToIPFS} createNFT={createNFT}/>
+                    <UploadNFT
+                        uploadToIPFS={uploadToIPFS}
+                        createNFT={createNFT}
+                    />
                 </div>
             </div>
         </div>

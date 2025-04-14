@@ -16,7 +16,7 @@ import { BsThreeDots } from "react-icons/bs";
 
 //INTERNAL IMPORT
 import Style from "./AuthorProfileCard.module.css";
-import images from "../../img";
+import images from "@/img";
 import { Button } from "@/components";
 
 const AuthorProfileCard = ({currentAccount}: {currentAccount: string}) => {

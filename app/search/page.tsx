@@ -4,10 +4,10 @@ import React from 'react'
 //INTRNAL IMPORT
 import Style from './search.module.css'
 import { Slider, Brand, Loading } from '@/components'
-import { SearchBar } from '@/SearchPage'
+import { SearchBar } from '@/views/SearchPage'
 import { Filter } from '@/components'
 
-import { NFTCardTwo, Banner } from '@/collectionPage/collectionIndex'
+import { NFTCardTwo, Banner } from '@/views/collectionPage/collectionIndex'
 import images from '@/img'
 import useFetchNFTs from '@/hooks/useFetchNFTs'
 

@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { debounce } from 'lodash/fp'
 //
 import Style from './Upload.module.css'
-import formStyle from '../AccountPage/Form/Form.module.css'
+import formStyle from '@/views/AccountPage/Form/Form.module.css'
 import images from '@/img'
 import { Button } from '@/components'
 import { DropZone } from './index'

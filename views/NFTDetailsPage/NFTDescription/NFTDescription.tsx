@@ -21,7 +21,7 @@ import { BiTransferAlt, BiDollar } from 'react-icons/bi'
 
 //INTERNAL IMPORT
 import Style from './NFTDescription.module.css'
-import images from '../../img'
+import images from '@/img'
 import { Button } from '@/components'
 import { NFTTabs } from '..'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -140,7 +140,7 @@ const NFTDescription = () => {
         const data = {
             id: tokenId,
             tokenURI: image,
-            price: price
+            price: price,
         }
         router.push(`/resell-token?data=${JSON.stringify(data)}`)
     }
@@ -339,7 +339,7 @@ const NFTDescription = () => {
                             }
                         >
                             {isSeller ? (
-                                'you can\'t buy your own NFT'
+                                "you can't buy your own NFT"
                             ) : isOwner ? (
                                 <Button
                                     icon=<FaWallet />

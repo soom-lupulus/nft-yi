@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 //INTRNAL IMPORT
 import Style from './DropZone.module.css'
-import images from '../../img'
+import images from '@/img'
 import { NFTMarketplaceContextType } from '@/context/NFTMarketplaceContext'
 import { pinata } from '@/utils/config'
 import { UploadResponse } from 'pinata'
@@ -15,6 +15,10 @@ import { Loading } from '@/components'
 type IDropZoneProps = {
     uploadToIPFS: NFTMarketplaceContextType['uploadToIPFS']
     setUploadResponse: React.Dispatch<React.SetStateAction<UploadResponse>>
+    title: string
+    heading: string
+    subHeading: string
+    name: string
 }
 const DropZone = ({
     title,

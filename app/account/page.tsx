@@ -6,7 +6,7 @@ import { useDropzone } from "react-dropzone";
 //INTERNAL IMPORT
 import Style from "./account.module.css";
 import images from "@/img";
-import From from '@/AccountPage/Form/Form'
+import From from '@/views/AccountPage/Form/Form'
 
 const Account = () => {
   const [fileUrl, setFileUrl] = useState(null);
