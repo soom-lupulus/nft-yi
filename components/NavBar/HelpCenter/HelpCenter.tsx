@@ -1,8 +1,15 @@
-import React from 'react'
+'use client'
+import React, { Dispatch, SetStateAction, useRef } from 'react'
 import Style from './HelpCenter.module.css'
 import Link from 'next/link'
-
-const HelpCenter = () => {
+import { useClickOutside } from '@/hooks'
+const HelpCenter = ({
+    setHelp,
+}: {
+    setHelp: Dispatch<SetStateAction<boolean>>
+}) => {
+    const wrapperRef = useRef<HTMLDivElement>(null)
+    useClickOutside(wrapperRef, () => setHelp(false))
     const helpCenter = [
         {
             name: 'About',
@@ -26,14 +33,12 @@ const HelpCenter = () => {
         },
     ]
     return (
-        <div>
-            <div className={Style.box}>
-                {helpCenter.map((el, i) => (
-                    <div key={i + 1} className={Style.helpCenter}>
-                        <Link href={{ pathname: el.link }}>{el.name}</Link>
-                    </div>
-                ))}
-            </div>
+        <div className={Style.box} ref={wrapperRef}>
+            {helpCenter.map((el, i) => (
+                <div key={i + 1} className={Style.helpCenter}>
+                    <Link href={{ pathname: el.link }}>{el.name}</Link>
+                </div>
+            ))}
         </div>
     )
 }

@@ -1,30 +1,53 @@
-import React from 'react'
+'use client'
+import React, { Dispatch, SetStateAction, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FaUserAlt, FaRegImage, FaUserEdit } from 'react-icons/fa'
 import { MdHelpCenter } from 'react-icons/md'
 import { TbDownloadOff, TbDownload } from 'react-icons/tb'
+import { MdLogout } from "react-icons/md";
 //
 import Style from './Profile.module.css'
 import images from '@/img'
+import { useClickOutside } from '@/hooks'
 
-const Profile = ({ currentAccount }: { currentAccount: string }) => {
+const Profile = ({
+    currentAccount,
+    accountEth,
+    setProfile,
+    logout,
+}: {
+    currentAccount: string
+    accountEth: string
+    setProfile: Dispatch<SetStateAction<boolean>>
+    logout: () => void
+}) => {
+    const wrapperRef = useRef<HTMLDivElement>(null)
+    useClickOutside(wrapperRef, () => setProfile(false))
     return (
-        <div className={Style.profile}>
+        <div className={Style.profile} ref={wrapperRef}>
             <div className={Style.profile_account}>
                 <Image
-                    src={images.user1}
+                    src={images.avatar}
                     alt='user profile'
                     width={50}
                     height={50}
                     className={Style.profile_account_img}
                 />
                 <div className={Style.profile_account_info}>
-                    <p>Shoaib Bhai</p>
-                    <small title={currentAccount} className='c_ellipsis' style={{
-                      width: '10rem',
-                      lineHeight: 1
-                    }}>{currentAccount}</small>
+                    <p
+                        title={currentAccount}
+                        className='c_ellipsis'
+                        style={{
+                            width: '10rem',
+                            lineHeight: 1,
+                        }}
+                    >
+                        {currentAccount}
+                    </p>
+                    <small title={accountEth}>
+                        ETH：{accountEth.slice(0, 15)}...{' '}
+                    </small>
                 </div>
             </div>
             <div className={Style.profile_menu}>
@@ -40,9 +63,7 @@ const Profile = ({ currentAccount }: { currentAccount: string }) => {
                     <div className={Style.profile_menu_one_item}>
                         <FaRegImage />
                         <p>
-                            <Link href={{ pathname: '/author' }}>
-                                my items
-                            </Link>
+                            <Link href={{ pathname: '/author' }}>my items</Link>
                         </p>
                     </div>
                     <div className={Style.profile_menu_one_item}>
@@ -67,6 +88,15 @@ const Profile = ({ currentAccount }: { currentAccount: string }) => {
                             <Link href={{ pathname: '/about-us' }}>
                                 About us
                             </Link>
+                        </p>
+                    </div>
+                    <div
+                        className={Style.profile_menu_one_item}
+                        onClick={logout}
+                    >
+                        <MdLogout />
+                        <p>
+                            <Link href={{ pathname: '/' }}>Log out</Link>
                         </p>
                     </div>
                 </div>

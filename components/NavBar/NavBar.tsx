@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 // icon
-import { MdNotifications } from 'react-icons/md'
+import { MdNotifications, MdWallet } from 'react-icons/md'
 import { BsSearch } from 'react-icons/bs'
 import { CgMenuLeft, CgMenuRight } from 'react-icons/cg'
 // internal
@@ -16,8 +16,13 @@ import { DiJqueryLogo } from 'react-icons/di'
 import { useScrollTrigger } from '@/hooks'
 
 const NavBar = () => {
-    const { currentAccount, connectWallect, checkIfWalletConnected } =
-        useContext(NFTMarketplaceContext)
+    const {
+        currentAccount,
+        accountEth,
+        connectWallect,
+        checkIfWalletConnected,
+        logout,
+    } = useContext(NFTMarketplaceContext)
     const [discover, setDiscover] = useState(false)
     const [help, setHelp] = useState(false)
     const [notification, setNotification] = useState(false)
@@ -127,7 +132,7 @@ const NavBar = () => {
                                     Style.navbar_container_right_help_box
                                 }
                             >
-                                <HelpCenter />
+                                <HelpCenter setHelp={setHelp} />
                             </div>
                         )}
                     </div>
@@ -144,33 +149,48 @@ const NavBar = () => {
                         {currentAccount ? (
                             <Link href={'/upload-nft'}>
                                 <Button
-                                    btnName='Create'
+                                    btnName='Create NFT'
                                     handleClick={() => {}}
                                 />
                             </Link>
                         ) : (
-                            <Button
-                                btnName='Connect'
-                                handleClick={connectWallect}
-                            />
+                            <>
+                                <Button
+                                    btnName='Connect Wallet'
+                                    handleClick={connectWallect}
+                                ></Button>
+                            </>
                         )}
                     </div>
                     {/* user profile */}
-                    <div className={Style.navbar_container_right_profile_box}>
-                        <div className={Style.navbar_container_right_profile}>
-                            <Image
-                                src={images.user1}
-                                alt='Profile'
-                                width={40}
-                                height={40}
-                                onClick={() => openProfile()}
+                    {currentAccount && (
+                        <div
+                            className={Style.navbar_container_right_profile_box}
+                        >
+                            <div
                                 className={Style.navbar_container_right_profile}
-                            />
-                            {profile && (
-                                <Profile currentAccount={currentAccount} />
-                            )}
+                            >
+                                <Image
+                                    src={images.avatar}
+                                    alt='Profile'
+                                    width={40}
+                                    height={40}
+                                    onClick={() => openProfile()}
+                                    className={
+                                        Style.navbar_container_right_profile
+                                    }
+                                />
+                                {profile && (
+                                    <Profile
+                                        currentAccount={currentAccount}
+                                        accountEth={accountEth}
+                                        setProfile={setProfile}
+                                        logout={logout}
+                                    />
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )}
                     {/* menu button */}
                     <div className={Style.navbar_container_right_menuBtn}>
                         <CgMenuRight

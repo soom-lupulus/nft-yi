@@ -7,7 +7,6 @@ import {
     ETHEREUM_METHODS,
     nftMarketplaceAbi,
     nftMarketplaceAddress,
-    whitelist,
 } from './constant'
 import { pinata } from '@/utils/config'
 import { UploadResponse } from 'pinata'
@@ -29,6 +28,7 @@ export type NFTInfoType = {
 export type NFTMarketplaceContextType = {
     titleData: string
     currentAccount: string
+    accountEth: string
     checkIfWalletConnected: () => void
     connectWallect: () => void
     uploadToIPFS: (file: File) => Promise<UploadResponse>
@@ -60,6 +60,8 @@ export type NFTMarketplaceContextType = {
     >
     buyNFT: (nft: { price: string; tokenId: string }) => void
     whitelistMint: (quantity: number) => void
+    getBalance: (address?: string) => Promise<string>
+    logout: () => void
 }
 
 /**
@@ -104,6 +106,7 @@ export const NFTMarketplaceContext =
     React.createContext<NFTMarketplaceContextType>({
         titleData: '',
         currentAccount: '',
+        accountEth: '',
         checkIfWalletConnected: () => {},
         connectWallect: () => {},
         uploadToIPFS: (file: File) => Promise.resolve({} as UploadResponse),
@@ -128,6 +131,9 @@ export const NFTMarketplaceContext =
                 }[],
             ),
         buyNFT: () => {},
+        getBalance: (address?: string | undefined) => Promise.resolve(''),
+        whitelistMint: () => ({}),
+        logout: () => {}
     })
 
 export const NFTMarketplaceProvider = ({
@@ -138,6 +144,7 @@ export const NFTMarketplaceProvider = ({
     const titleData = 'Discover, collect, and sell NFTs '
     // 当前用户
     const [currentAccount, setCurrentAccount] = useState<string>('')
+    const [accountEth, setAccountEth] = useState<string>('')
     const router = useRouter()
     /**
      * 检查钱包是否已经授权连接
@@ -179,6 +186,8 @@ export const NFTMarketplaceProvider = ({
             })
             if (Array.isArray(accounts) && accounts.length) {
                 setCurrentAccount(accounts[0])
+                const ceth = await getBalance(accounts[0])
+                setAccountEth(ceth)
                 console.log('首次连接成功！已连接账户:', accounts[0])
                 toast.success(`连接账户成功! `)
                 // 刷新
@@ -191,6 +200,12 @@ export const NFTMarketplaceProvider = ({
             }
             console.log(error)
         }
+    }
+
+    const logout = () => {
+        setCurrentAccount('')
+        setAccountEth('0')
+        toast.success('已断开钱包连接')
     }
 
     const listenWallet = () => {
@@ -209,6 +224,13 @@ export const NFTMarketplaceProvider = ({
         const handleAccountsChanged = (accounts: string[]) => {
             console.log('Accounts changed:', accounts)
             setCurrentAccount(accounts[0])
+            getBalance(accounts[0])
+                .then(eth => {
+                    setAccountEth(eth)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
 
         const handleChainChanged = (chainId: string) => {
@@ -228,6 +250,20 @@ export const NFTMarketplaceProvider = ({
 
         // 返回清理函数
         return cleanup
+    }
+
+    const getBalance = async (address?: string) => {
+        try {
+            const account = address || currentAccount
+            if (!account) throw new Error('No account address provided')
+            if (!window.ethereum) throw new Error('no metaMask installed')
+            const provider = new ethers.BrowserProvider(window.ethereum)
+            const balance = await provider.getBalance(account)
+            return ethers.formatEther(balance) // 转换为 ETH 单位
+        } catch (error) {
+            console.error('Error fetching balance:', error)
+            return '0'
+        }
     }
 
     /**
@@ -469,6 +505,9 @@ export const NFTMarketplaceProvider = ({
                 createSale,
                 whitelistMint,
                 currentAccount,
+                accountEth,
+                getBalance,
+                logout
             }}
         >
             {children}

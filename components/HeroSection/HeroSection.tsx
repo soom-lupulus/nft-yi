@@ -6,6 +6,7 @@ import Style from './HeroSection.module.css'
 import images from '@/img'
 import { Button } from '@/components'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
+import Link from 'next/link'
 
 const HeroSection = () => {
     const { titleData } = useContext(NFTMarketplaceContext)
@@ -18,14 +19,16 @@ const HeroSection = () => {
                         Discover the most outstanding NFTs in all topic of
                         life.Creative your NFTs and sell them
                     </p>
-                    <Button
-                        btnName='Start your search'
-                        handleClick={() => {}}
-                    ></Button>
+                    <Link href={{pathname: '/search'}}>
+                        <Button
+                            btnName='Start your search'
+                            handleClick={() => {}}
+                        ></Button>
+                    </Link>
                 </div>
                 <div className={Style.heroSection_box_right}>
                     <Image
-                        src={images.hero}
+                        src={images.hl}
                         alt='hero section'
                         width={600}
                         height={600}

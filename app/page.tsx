@@ -19,6 +19,7 @@ import {
     Brand,
     Video,
     Loading,
+    Empty,
 } from '@/components'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 import useFetchNFTs from '@/hooks/useFetchNFTs'
@@ -26,7 +27,7 @@ import { getTopCreators } from '@/utils/getTopCreators'
 
 const Home = () => {
     const { checkIfWalletConnected } = useContext(NFTMarketplaceContext)
-    const { nfts, filterNFTsByName } = useFetchNFTs()
+    const { nfts, filterNFTsByName, isLoading } = useFetchNFTs()
 
     const creators = getTopCreators(nfts)
     const topCreatorsArr = useMemo(() => {
@@ -61,7 +62,13 @@ const Home = () => {
                 paragraph='Discover the most outstanding NFTs in all topics of life.'
             />
             <Filter />
-            {nfts.length ? <NFTCard NFTData={nfts} /> : <Loading />}
+            {isLoading ? (
+                <Loading />
+            ) : nfts.length ? (
+                <NFTCard NFTData={nfts} />
+            ) : (
+                <Empty />
+            )}
             <Title
                 heading='Browser by category'
                 paragraph='Explore the NFTs in the most featured categories.'

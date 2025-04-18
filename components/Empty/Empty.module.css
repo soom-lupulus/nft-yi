@@ -1,0 +1,27 @@
+.emptyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
+.emptyImage {
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+}
+
+.emptyTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.emptyDescription {
+    font-size: 0.9rem;
+    max-width: 300px;
+    line-height: 1.5;
+}
