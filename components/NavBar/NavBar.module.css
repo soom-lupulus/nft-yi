@@ -3,7 +3,7 @@
     padding-block: 1.5rem;
     position: sticky;
     top: 0;
-    z-index: 1111111;
+    z-index: 111;
 }
 .navbar.scrolled {
     background-color: var(--main-bg-color); /* 滚动时的背景色 */

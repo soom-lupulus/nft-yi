@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 // icon
@@ -13,7 +13,7 @@ import { Button } from '@/components'
 import images from '@/img'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 import { DiJqueryLogo } from 'react-icons/di'
-import { useScrollTrigger } from '@/hooks'
+import { useScrollTrigger, useClickOutside } from '@/hooks'
 
 const NavBar = () => {
     const {
@@ -29,6 +29,11 @@ const NavBar = () => {
     const [profile, setProfile] = useState(false)
     const [openSideMenu, setOpenSideMenu] = useState(false)
     const { scrolled } = useScrollTrigger(10)
+    const wrapperDiscoverRef = useRef<HTMLDivElement>(null)
+    const wrapperHelpRef = useRef<HTMLDivElement>(null)
+
+    useClickOutside(wrapperDiscoverRef, () => setDiscover(false))
+    useClickOutside(wrapperHelpRef, () => setHelp(false))
 
     const openMenu = (e: React.MouseEvent<HTMLParagraphElement>) => {
         const btnText = e.currentTarget.innerText
@@ -115,11 +120,13 @@ const NavBar = () => {
                         <p onClick={e => openMenu(e)}>Discover</p>
                         {discover && (
                             <div
+                                ref={wrapperDiscoverRef}
                                 className={
                                     Style.navbar_container_right_discover_box
                                 }
+                                onClick={() => setDiscover(false)}
                             >
-                                <Discover setDiscover={setDiscover} />
+                                <Discover />
                             </div>
                         )}
                     </div>
@@ -131,8 +138,10 @@ const NavBar = () => {
                                 className={
                                     Style.navbar_container_right_help_box
                                 }
+                                ref={wrapperHelpRef}
+                                onClick={() => setHelp(false)}
                             >
-                                <HelpCenter setHelp={setHelp} />
+                                <HelpCenter />
                             </div>
                         )}
                     </div>

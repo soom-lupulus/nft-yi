@@ -1,5 +1,5 @@
 'use client'
-import { RefObject, useEffect } from 'react'
+import { RefObject, useCallback, useEffect, useRef } from 'react'
 
 type Handler = (event: MouseEvent | TouchEvent) => void
 
@@ -7,6 +7,7 @@ export default function useClickOutside<T extends HTMLElement = HTMLElement>(
     ref: RefObject<T | null>,
     handler: Handler
 ) {
+
     useEffect(() => {
         const listener = (event: MouseEvent | TouchEvent) => {
             // 如果点击的是ref元素内部，则不处理
@@ -15,7 +16,6 @@ export default function useClickOutside<T extends HTMLElement = HTMLElement>(
             }
             handler(event)
         }
-
         document.addEventListener('mousedown', listener)
         document.addEventListener('touchstart', listener)
 
@@ -23,5 +23,5 @@ export default function useClickOutside<T extends HTMLElement = HTMLElement>(
             document.removeEventListener('mousedown', listener)
             document.removeEventListener('touchstart', listener)
         }
-    }, [ref, handler])
+    }, [ref])
 }

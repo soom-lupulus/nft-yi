@@ -2,14 +2,7 @@
 import React, { Dispatch, SetStateAction, useRef } from 'react'
 import Style from './HelpCenter.module.css'
 import Link from 'next/link'
-import { useClickOutside } from '@/hooks'
-const HelpCenter = ({
-    setHelp,
-}: {
-    setHelp: Dispatch<SetStateAction<boolean>>
-}) => {
-    const wrapperRef = useRef<HTMLDivElement>(null)
-    useClickOutside(wrapperRef, () => setHelp(false))
+const HelpCenter = () => {
     const helpCenter = [
         {
             name: 'About',
@@ -33,7 +26,7 @@ const HelpCenter = ({
         },
     ]
     return (
-        <div className={Style.box} ref={wrapperRef}>
+        <div className={Style.box}>
             {helpCenter.map((el, i) => (
                 <div key={i + 1} className={Style.helpCenter}>
                     <Link href={{ pathname: el.link }}>{el.name}</Link>
