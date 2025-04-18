@@ -8,9 +8,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type Location {
+  id          String? @map("_id") @db.ObjectId
+  type        String  @default("Point")
+  coordinates Float[]
+  description String?
+  address     String?
+  day         Int?
+}
+
 model Nft {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  name   String  @unique
-  price  String?
-  rating Float   @default(4.5)
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  name            String     @unique
+  price           Float
+  rating          Float      @default(4.5)
+  durations       String
+  maxGroupSize    Int
+  difficulty      String
+  ratingsAverage  String
+  startLocation   Location
+  ratingsQuantity Int
+  images          String[]
+  startDates      String[]
+  guides          String[]
+  summary         String
+  description     String
+  imageCover      String
+  locations       Location[]
 }

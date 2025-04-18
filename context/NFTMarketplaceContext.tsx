@@ -7,12 +7,14 @@ import {
     ETHEREUM_METHODS,
     nftMarketplaceAbi,
     nftMarketplaceAddress,
+    whitelist,
 } from './constant'
 import { pinata } from '@/utils/config'
 import { UploadResponse } from 'pinata'
 import { NFTMarketplace as INFTMarketplace } from '@/contract/typechain-types/index'
 import toast from 'react-hot-toast'
 import { BigNumberish } from 'ethers'
+import { generateMerkleProof } from '@/utils'
 
 export type NFTInfoType = {
     tokenId: number
@@ -57,6 +59,7 @@ export type NFTMarketplaceContextType = {
         }[]
     >
     buyNFT: (nft: { price: string; tokenId: string }) => void
+    whitelistMint: (quantity: number) => void
 }
 
 /**
@@ -426,9 +429,26 @@ export const NFTMarketplaceProvider = ({
         }
     }
 
+    // 在Provider中添加新方法
+    const whitelistMint = async (quantity: number) => {
+        try {
+            const proof = await generateMerkleProof(currentAccount)
+            const contract = await connectingWithSmartContract()
+            await contract.whitelistMint(proof, quantity)
+            toast.success('白名单铸造成功！')
+        } catch (error: any) {
+            toast.error('铸造失败：' + error.message)
+        }
+    }
+
     useEffect(() => {
         const cleanup = listenWallet()
         console.log('监听开始！')
+        generateMerkleProof('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266').then(
+            res => {
+                console.log(res)
+            },
+        )
 
         return () => {
             typeof cleanup === 'function' && cleanup()
@@ -447,6 +467,7 @@ export const NFTMarketplaceProvider = ({
                 fetchMyNFTsOrListedNFTs,
                 createNFT,
                 createSale,
+                whitelistMint,
                 currentAccount,
             }}
         >

@@ -22,7 +22,7 @@ import {
 } from '@/components'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 import useFetchNFTs from '@/hooks/useFetchNFTs'
-import { getTopCreators } from '@/utils'
+import { getTopCreators } from '@/utils/getTopCreators'
 
 const Home = () => {
     const { checkIfWalletConnected } = useContext(NFTMarketplaceContext)

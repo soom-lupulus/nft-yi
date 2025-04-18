@@ -112,7 +112,7 @@ const NavBar = () => {
                                     Style.navbar_container_right_discover_box
                                 }
                             >
-                                <Discover />
+                                <Discover setDiscover={setDiscover}/>
                             </div>
                         )}
                     </div>

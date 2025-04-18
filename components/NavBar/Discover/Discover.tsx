@@ -1,8 +1,13 @@
-import React from 'react'
+'use client'
+import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import Style from './Discover.module.css'
 import Link from 'next/link'
-
-const Discover = () => {
+import { useClickOutside } from '@/hooks'
+const Discover = ({
+    setDiscover,
+}: {
+    setDiscover: Dispatch<SetStateAction<boolean>>
+}) => {
     const discover = [
         {
             name: 'Collection',
@@ -33,11 +38,18 @@ const Discover = () => {
             link: 'blog',
         },
     ]
+    const wrapperRef = useRef<HTMLDivElement>(null)
+    useClickOutside(wrapperRef, () => setDiscover(false))
     return (
-        <div>
+        <div ref={wrapperRef}>
             {discover.map((el, i) => (
                 <div key={i + 1} className={Style.discover}>
-                    <Link href={{ pathname: `${el.link}` }}>{el.name}</Link>
+                    <Link
+                        onClick={() => setDiscover(false)}
+                        href={{ pathname: `${el.link}` }}
+                    >
+                        {el.name}
+                    </Link>
                 </div>
             ))}
         </div>
