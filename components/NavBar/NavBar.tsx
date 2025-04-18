@@ -13,6 +13,7 @@ import { Button } from '@/components'
 import images from '@/img'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 import { DiJqueryLogo } from 'react-icons/di'
+import { useScrollTrigger } from '@/hooks'
 
 const NavBar = () => {
     const { currentAccount, connectWallect, checkIfWalletConnected } =
@@ -22,6 +23,7 @@ const NavBar = () => {
     const [notification, setNotification] = useState(false)
     const [profile, setProfile] = useState(false)
     const [openSideMenu, setOpenSideMenu] = useState(false)
+    const { scrolled } = useScrollTrigger(10)
 
     const openMenu = (e: React.MouseEvent<HTMLParagraphElement>) => {
         const btnText = e.currentTarget.innerText
@@ -80,12 +82,12 @@ const NavBar = () => {
     }, [])
 
     return (
-        <div className={Style.navbar}>
+        <div className={`${Style.navbar} ${scrolled ? Style.scrolled : ''}`}>
             <div className={Style.navbar_container}>
                 <div className={Style.navbar_container_left}>
                     <div className={Style.logo}>
                         <Link href={{ pathname: '/' }}>
-                            <DiJqueryLogo size={30}/>
+                            <DiJqueryLogo size={30} />
                         </Link>
                     </div>
                     <div className={Style.navbar_container_left_box_input}>
@@ -112,7 +114,7 @@ const NavBar = () => {
                                     Style.navbar_container_right_discover_box
                                 }
                             >
-                                <Discover setDiscover={setDiscover}/>
+                                <Discover setDiscover={setDiscover} />
                             </div>
                         )}
                     </div>
@@ -164,7 +166,9 @@ const NavBar = () => {
                                 onClick={() => openProfile()}
                                 className={Style.navbar_container_right_profile}
                             />
-                            {profile && <Profile currentAccount={currentAccount}/>}
+                            {profile && (
+                                <Profile currentAccount={currentAccount} />
+                            )}
                         </div>
                     </div>
                     {/* menu button */}

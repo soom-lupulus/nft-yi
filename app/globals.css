@@ -18,7 +18,7 @@
 } */
 
 /* theme yi */
-:root {
+/* :root {
     --icons-color: #ffdf2b;
     --icons-light-color: #ffdf2b57;
     --icons-bg-color: #ffdf2b;
@@ -30,6 +30,83 @@
     --box-shadow: 1px 1px 2px #ffdf2b;
 
     --box-shadow-2: 1px 1px 2px #ffdf2b, -1px -1px 2px #ffdf2b;
+} */
+/* 周易八卦主题 */
+.root_backup {
+    /* 主色调 - 坤卦(地)为基底 */
+    --main-bg-color: #2a2118; /* 深土色，象征大地 */
+
+    /* 文字/图标 - 乾卦(天) */
+    --icons-color: #e6d8b5; /* 淡金色，象征天光 */
+    --icons-light-color: #e6d8b570; /* 半透明金色 */
+    --icons-bg-color: #c9a66b; /* 更深的金色 */
+
+    /* 阴影 - 坎卦(水) */
+    --shadow-dark-color: #1a2e3a; /* 深水蓝 */
+    --bg-shadow-dark-color: #1a2e3a;
+    --shadow-light-color: #3a4e5a; /* 浅水蓝 */
+
+    /* 强调色 - 离卦(火) */
+    --accent-color: #c84c32; /* 朱砂红 */
+
+    /* 阴影效果 */
+    --box-shadow: 0 2px 8px rgba(200, 76, 50, 0.3); /* 火色阴影 */
+    --box-shadow-2:
+        1px 1px 3px var(--shadow-dark-color),
+        -1px -1px 3px var(--shadow-light-color);
+}
+
+/* 阴阳黑白主题 */
+.root_backup2 {
+    /* 主色调 - 阴阳基底 */
+    --main-bg-color: #0a0a0a; /* 玄黑，象征太阴 */
+    
+    /* 文字/图标 - 阳 */
+    --icons-color: #f0f0f0; /* 月白色 */
+    --icons-light-color: rgba(240, 240, 240, 0.7); /* 半透明白 */
+    --icons-bg-color: #d0d0d0; /* 浅灰 */
+    
+    /* 阴影 - 阴阳交界 */
+    --shadow-dark-color: #1a1a1a; /* 深灰 */
+    --bg-shadow-dark-color: #1a1a1a;
+    --shadow-light-color: #333333; /* 中灰 */
+    
+    /* 强调色 - 太极两点 */
+    --accent-yin: #8e44ad; /* 紫黑，阴中阳点 */
+    --accent-yang: #f1c40f; /* 金黄，阳中阴点 */
+    
+    /* 阴影效果 */
+    --box-shadow: 0 2px 8px rgba(142, 68, 173, 0.3); /* 紫影 */
+    --box-shadow-2: 
+        1px 1px 3px var(--shadow-dark-color),
+        -1px -1px 3px var(--shadow-light-color);
+}
+
+/* 温和自然主题 */
+:root {
+    /* 主色调 */
+    --main-bg-color: #f8f5f2; /* 羊绒白 */
+    
+    /* 文字/图标 */
+    --icons-color: #5a5a5a; /* 深灰 */
+    --icons-light-color: rgba(90, 90, 90, 0.6); /* 半透明灰 */
+    --icons-bg-color: #b8b8b8; /* 中灰 */
+    
+    /* 辅助色 */
+    --primary-color: #a8c3bc; /* 雾霾蓝绿 */
+    --secondary-color: #e3b8b0; /* 灰粉色 */
+    --accent-color: #c4a78a; /* 浅驼色 */
+    
+    /* 阴影 */
+    --shadow-dark-color: #d6d2ce; /* 浅灰褐 */
+    --bg-shadow-dark-color: #d6d2ce;
+    --shadow-light-color: #ebe7e3; /* 极浅灰 */
+    
+    /* 阴影效果 */
+    --box-shadow: 0 2px 6px rgba(168, 195, 188, 0.2);
+    --box-shadow-2: 
+        1px 1px 3px var(--shadow-dark-color),
+        -1px -1px 3px var(--shadow-light-color);
 }
 
 html,

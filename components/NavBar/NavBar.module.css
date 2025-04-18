@@ -1,8 +1,14 @@
 .navbar {
     width: 100%;
     padding-block: 1.5rem;
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 1111111;
+}
+.navbar.scrolled {
+    background-color: var(--main-bg-color); /* 滚动时的背景色 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 可选：添加阴影效果 */
+    transition: background-color 0.3s ease; /* 平滑过渡效果 */
 }
 
 .navbar_container {
@@ -26,7 +32,7 @@
     border: 1px solid var(--icons-color);
     display: flex;
     align-items: center;
-    padding: .5rem;
+    padding: 0.5rem;
     border-radius: 2rem;
 }
 
@@ -44,9 +50,9 @@
 
 /* right */
 
-.navbar_container_right{
+.navbar_container_right {
     display: grid;
-    grid-template-columns: 1fr 1fr .5fr 1fr .3fr;
+    grid-template-columns: 1fr 1fr 0.5fr 1fr 0.3fr;
     gap: 1rem;
     align-items: center;
     /* align-self: flex-end; */
@@ -62,9 +68,10 @@
     cursor: pointer;
 }
 
-.navbar_container_right_discover_box, .navbar_container_right_help_box {
+.navbar_container_right_discover_box,
+.navbar_container_right_help_box {
     position: absolute;
-    padding: 1rem .5rem;
+    padding: 1rem 0.5rem;
     box-shadow: var(--box-shadow);
     font-size: 1rem;
     width: 15rem;
@@ -77,7 +84,7 @@
     cursor: pointer;
 }
 
-.notify{
+.notify {
     font-size: 2rem;
 }
 
@@ -118,18 +125,18 @@
     z-index: 11111;
 }
 
-.sideBar::-webkit-scrollbar{
+.sideBar::-webkit-scrollbar {
     display: none;
 }
 
 @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
-    .navbar_container{
+    .navbar_container {
         grid-template-columns: 1fr 1fr;
     }
-    .navbar_container_left{
+    .navbar_container_left {
         grid-template-columns: 1fr;
     }
-    .navbar_container_right{
+    .navbar_container_right {
         grid-template-columns: repeat(3, 1fr);
     }
 
@@ -137,19 +144,19 @@
         display: block;
     }
 
-    .navbar_container_left_box_input_box{
+    .navbar_container_left_box_input_box {
         display: none;
     }
-    .navbar_container_right_discover{
+    .navbar_container_right_discover {
         display: none;
     }
-    .navbar_container_right_help{
+    .navbar_container_right_help {
         display: none;
     }
-    .navbar_container_right_button{
+    .navbar_container_right_button {
         display: none;
     }
-    .sideBar{
+    .sideBar {
         display: block;
     }
 }
