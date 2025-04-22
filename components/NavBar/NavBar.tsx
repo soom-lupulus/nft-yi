@@ -12,7 +12,7 @@ import { Discover, HelpCenter, Notification, Profile, SideBar } from './index'
 import { Button } from '@/components'
 import images from '@/img'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
-import { DiJqueryLogo } from 'react-icons/di'
+import { FaYinYang } from "react-icons/fa";
 import { useScrollTrigger, useClickOutside } from '@/hooks'
 
 const NavBar = () => {
@@ -97,7 +97,7 @@ const NavBar = () => {
                 <div className={Style.navbar_container_left}>
                     <div className={Style.logo}>
                         <Link href={{ pathname: '/' }}>
-                            <DiJqueryLogo size={30} />
+                            <FaYinYang size={30} />
                         </Link>
                     </div>
                     <div className={Style.navbar_container_left_box_input}>

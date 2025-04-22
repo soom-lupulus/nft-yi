@@ -12,7 +12,7 @@ import formStyle from '@/views/AccountPage/Form/Form.module.css'
 import images from '@/img'
 import { Button } from '@/components'
 import { DropZone } from './index'
-import { NFTMarketplaceContextType } from '@/context/NFTMarketplaceContext'
+import { NFTMarketplaceContextType } from '@/context/typing'
 import { UploadResponse } from 'pinata'
 
 type IUploadNFTProps = Pick<
@@ -25,12 +25,14 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
     const [name, setName] = useState('')
     const [website, setWebsite] = useState('')
     const [description, setDescription] = useState('')
-    const [royalties, setRoyalties] = useState('')
+    const [royalty, setRoyalty] = useState('')
     const [fileSize, setFileSize] = useState('')
     const [category, setCategory] = useState(0)
     const [properties, setProperties] = useState('')
     const [image, setImage] = useState<string>('')
-    const [uploadResponse, setUploadResponse] = useState<UploadResponse>({} as UploadResponse)
+    const [uploadResponse, setUploadResponse] = useState<UploadResponse>(
+        {} as UploadResponse,
+    )
 
     const categoryArry = [
         {
@@ -68,7 +70,7 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                 name={name}
                 website={website}
                 description={description}
-                royalties={royalties}
+                royalty={royalty}
                 fileSize={fileSize}
                 category={category}
                 properties={properties}
@@ -83,7 +85,7 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                     <label htmlFor='nft'>Item Name</label>
                     <input
                         type='text'
-                        placeholder='shoaib bhai'
+                        placeholder='ygg'
                         className={formStyle.Form_box_input_userName}
                         onChange={e => setName(e.target.value)}
                     />
@@ -184,7 +186,7 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                             <input
                                 type='text'
                                 placeholder='20%'
-                                onChange={e => setRoyalties(e.target.value)}
+                                onChange={e => setRoyalty(e.target.value)}
                             />
                         </div>
                     </div>
@@ -236,6 +238,7 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                             createNFT({
                                 price,
                                 description,
+                                royalty,
                                 image,
                                 name,
                                 uploadResponse,

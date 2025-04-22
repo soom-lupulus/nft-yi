@@ -33,15 +33,15 @@ const Account = () => {
 
       <div className={Style.account_box}>
         <div className={Style.account_box_img} {...getRootProps()}>
-          <input {...getInputProps()} />
+          {/* <input {...getInputProps()} /> */}
           <Image
-            src={images.user1}
+            src={images.avatar}
             alt="account upload"
             width={150}
             height={150}
             className={Style.account_box_img_img}
           />
-          <p className={Style.account_box_img_para}>Change Image</p>
+          {/* <p className={Style.account_box_img_para}>Change Image</p> */}
         </div>
         <div className={Style.account_box_from}>
           <From />

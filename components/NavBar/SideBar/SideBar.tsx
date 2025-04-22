@@ -19,7 +19,6 @@ import Style from './SideBar.module.css'
 import Button from '@/components/Button/Button'
 import {
     NFTMarketplaceContext,
-    NFTMarketplaceContextType,
 } from '@/context/NFTMarketplaceContext'
 
 type IPropTypes = {

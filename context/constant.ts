@@ -10,6 +10,7 @@ export const nftMarketplaceAbi = nftMarketplace.abi
  */
 export const ETHEREUM_METHODS = {
     REQUEST_ACCOUNTS: 'eth_requestAccounts',
+    WALLET_REVOKEPERMISSIONS: 'wallet_revokePermissions',
     ACCOUNTS: 'eth_accounts',
     BLOCK_NUMBER: 'eth_blockNumber',
     CALL: 'eth_call',

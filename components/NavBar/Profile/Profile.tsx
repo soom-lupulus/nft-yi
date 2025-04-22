@@ -50,7 +50,7 @@ const Profile = ({
                     </small>
                 </div>
             </div>
-            <div className={Style.profile_menu}>
+            <div className={Style.profile_menu} onClick={() => setProfile(false)}>
                 <div className={Style.profile_menu_one}>
                     <div className={Style.profile_menu_one_item}>
                         <FaUserAlt />

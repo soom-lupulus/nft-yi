@@ -70,7 +70,7 @@ const DaysComponents = ({ el, i }: IDaysComponentsPropsType) => {
                             <p>
                                 Creator
                                 <span>
-                                    Shoaib Bhai
+                                    ygg
                                     <small>
                                         <MdVerified />
                                     </small>

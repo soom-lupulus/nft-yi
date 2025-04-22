@@ -6,7 +6,7 @@ import Image from 'next/image'
 //INTRNAL IMPORT
 import Style from './DropZone.module.css'
 import images from '@/img'
-import { NFTMarketplaceContextType } from '@/context/NFTMarketplaceContext'
+import { NFTMarketplaceContextType } from '@/context/typing'
 import { pinata } from '@/utils/config'
 import { UploadResponse } from 'pinata'
 import toast from 'react-hot-toast'

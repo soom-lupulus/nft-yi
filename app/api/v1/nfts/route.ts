@@ -5,7 +5,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id')
     if (id) {
-        const nft = await prisma.nft.findUnique({
+        const nft = await prisma.nfts.findUnique({
             where: { id }
         })
         return NextResponse.json({
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
             data: nft
         })
     } else {
-        const nfts = await prisma.nft.findRaw()
+        const nfts = await prisma.nfts.findRaw()
         return NextResponse.json({
             code: 200,
             msg: '查询成功！',
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
     const data = await request.json()
-    const nft = await prisma.nft.create({
+    const nft = await prisma.nfts.create({
         data
     })
     return NextResponse.json({
@@ -40,7 +40,7 @@ export async function DELETE(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id')
     if (id) {
-        const nft = await prisma.nft.delete({
+        const nft = await prisma.nfts.delete({
             where: { id }
         })
         return NextResponse.json({

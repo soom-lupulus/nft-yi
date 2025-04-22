@@ -56,6 +56,7 @@ import founder4 from "./founder4.jpg";
 import hl from './hl.png'
 import avatar from './avatar.png'
 import empty from './empty.svg'
+import landscape from './landscape.svg'
 
 export default {
   hero2,
@@ -115,5 +116,6 @@ export default {
   founder4,
   hl,
   avatar,
-  empty
+  empty,
+  landscape
 };

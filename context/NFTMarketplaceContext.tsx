@@ -14,55 +14,7 @@ import { NFTMarketplace as INFTMarketplace } from '@/contract/typechain-types/in
 import toast from 'react-hot-toast'
 import { BigNumberish } from 'ethers'
 import { generateMerkleProof } from '@/utils'
-
-export type NFTInfoType = {
-    tokenId: number
-    seller: string
-    owner: string
-    price: string
-    image: string
-    name: string
-    description: string
-}
-
-export type NFTMarketplaceContextType = {
-    titleData: string
-    currentAccount: string
-    accountEth: string
-    checkIfWalletConnected: () => void
-    connectWallect: () => void
-    uploadToIPFS: (file: File) => Promise<UploadResponse>
-    createNFT: (NFTData: {
-        price: string
-        name: string
-        description: string
-        image: string
-        uploadResponse: UploadResponse
-    }) => void
-    createSale: (
-        url: string,
-        price: string,
-        isReselling?: boolean,
-        id?: string,
-    ) => void
-    fetchNFTs: () => Promise<NFTInfoType[]>
-    fetchMyNFTsOrListedNFTs: (
-        type: 'fetchItemListed' | 'fetchMyNFTs',
-    ) => Promise<
-        {
-            cid: string
-            image: string
-            owner: string
-            seller: string
-            tokenId: bigint
-            price: string
-        }[]
-    >
-    buyNFT: (nft: { price: string; tokenId: string }) => void
-    whitelistMint: (quantity: number) => void
-    getBalance: (address?: string) => Promise<string>
-    logout: () => void
-}
+import { NFTFormType, NFTInfoType, NFTMarketplaceContextType } from './typing'
 
 /**
  * 获取智能合约实例
@@ -110,13 +62,7 @@ export const NFTMarketplaceContext =
         checkIfWalletConnected: () => {},
         connectWallect: () => {},
         uploadToIPFS: (file: File) => Promise.resolve({} as UploadResponse),
-        createNFT: (NFTData: {
-            price: string
-            name: string
-            description: string
-            image: string
-            uploadResponse: UploadResponse
-        }) => {},
+        createNFT: (NFTFormData: NFTFormType) => {},
         createSale: () => {},
         fetchNFTs: () => Promise.resolve([] as NFTInfoType[]),
         fetchMyNFTsOrListedNFTs: () =>
@@ -132,8 +78,7 @@ export const NFTMarketplaceContext =
             ),
         buyNFT: () => {},
         getBalance: (address?: string | undefined) => Promise.resolve(''),
-        whitelistMint: () => ({}),
-        logout: () => {}
+        logout: () => {},
     })
 
 export const NFTMarketplaceProvider = ({
@@ -141,7 +86,8 @@ export const NFTMarketplaceProvider = ({
 }: {
     children: React.ReactNode
 }) => {
-    const titleData = 'Discover, collect, and sell NFTs '
+    // const titleData = 'Discover, collect, and sell NFTs '
+    const titleData = `Amazing NFT，Go Discovering yours`
     // 当前用户
     const [currentAccount, setCurrentAccount] = useState<string>('')
     const [accountEth, setAccountEth] = useState<string>('')
@@ -190,7 +136,14 @@ export const NFTMarketplaceProvider = ({
                 setAccountEth(ceth)
                 console.log('首次连接成功！已连接账户:', accounts[0])
                 toast.success(`连接账户成功! `)
-                // 刷新
+                // 同步数据库信息
+                fetch(`/api/v1/users?walletAddress=${accounts[0]}&username=匿名用户`, {
+                    method: 'POST',
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res);
+                    })
             } else {
                 console.log('accounts are not found!')
             }
@@ -202,7 +155,15 @@ export const NFTMarketplaceProvider = ({
         }
     }
 
-    const logout = () => {
+    const logout = async () => {
+        await window.ethereum?.request({
+            method: ETHEREUM_METHODS.WALLET_REVOKEPERMISSIONS,
+            params: [
+                {
+                    eth_accounts: {}, // 撤销账户访问权限
+                },
+            ],
+        })
         setCurrentAccount('')
         setAccountEth('0')
         toast.success('已断开钱包连接')
@@ -289,18 +250,20 @@ export const NFTMarketplaceProvider = ({
     const createNFT = async ({
         name,
         description,
+        royalty,
         price,
         image,
         uploadResponse,
-    }: {
-        name: string
-        description: string
-        price: string
-        image: string
-        uploadResponse: UploadResponse
-    }) => {
+    }: NFTFormType) => {
         try {
-            if (!name || !description || !price || !image || !uploadResponse) {
+            if (
+                !name ||
+                !description ||
+                !price ||
+                !image ||
+                !uploadResponse ||
+                !royalty
+            ) {
                 toast.error('参数不全，请检查参数！')
                 return
             }
@@ -313,7 +276,7 @@ export const NFTMarketplaceProvider = ({
                 },
             })
             console.log(update)
-            await createSale(image, price)
+            await createSale(image, price, royalty)
             toast.success('铸造成功！')
         } catch (error) {
             console.log(error)
@@ -325,6 +288,7 @@ export const NFTMarketplaceProvider = ({
     const createSale = async (
         url: string,
         price: string,
+        royalty: string,
         isReselling?: boolean,
         id?: BigNumberish,
     ) => {
@@ -336,9 +300,14 @@ export const NFTMarketplaceProvider = ({
             const listingPrice = await contract.getListingPrice()
             let transaction = null
             if (!isReselling) {
-                transaction = await contract.createToken(url, eth_price, {
-                    value: listingPrice,
-                })
+                transaction = await contract.createToken(
+                    url,
+                    eth_price,
+                    royalty,
+                    {
+                        value: listingPrice,
+                    },
+                )
             } else {
                 if (!id) return toast.error('resell失败，缺少参数NFT_tokenid')
                 transaction = await contract.resellToken(id, eth_price, {
@@ -454,26 +423,20 @@ export const NFTMarketplaceProvider = ({
             const contract = await connectingWithSmartContract()
             if (!contract) return toast.error('合约获取失败！')
             const price = ethers.parseEther(nft.price.toString())
-            const transaction = await contract.createMarketSale(nft.tokenId, {
-                value: price,
-            })
+            // 证明
+            const proof = await generateMerkleProof(currentAccount)
+            const transaction = await contract.createMarketSale(
+                nft.tokenId,
+                proof,
+                {
+                    value: price,
+                },
+            )
             await transaction.wait()
             toast.success('购买成功！')
             router.push('/author')
         } catch (error) {
             console.log(error)
-        }
-    }
-
-    // 在Provider中添加新方法
-    const whitelistMint = async (quantity: number) => {
-        try {
-            const proof = await generateMerkleProof(currentAccount)
-            const contract = await connectingWithSmartContract()
-            await contract.whitelistMint(proof, quantity)
-            toast.success('白名单铸造成功！')
-        } catch (error: any) {
-            toast.error('铸造失败：' + error.message)
         }
     }
 
@@ -503,11 +466,10 @@ export const NFTMarketplaceProvider = ({
                 fetchMyNFTsOrListedNFTs,
                 createNFT,
                 createSale,
-                whitelistMint,
                 currentAccount,
                 accountEth,
                 getBalance,
-                logout
+                logout,
             }}
         >
             {children}

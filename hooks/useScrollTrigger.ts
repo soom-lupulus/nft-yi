@@ -7,8 +7,6 @@ export default function useScrollTrigger(threshold = 10) {
 
     useEffect(() => {
         const handleScroll = throttle(150)(() => {
-            console.log(6987);
-
             setScrolled(window.scrollY > threshold);
         });
 
