@@ -49,19 +49,19 @@ const Home = () => {
             <HeroSection />
             <Service />
             <BigNFTSlider />
-            <Title
+            {/* <Title
                 heading='Audio Collection'
                 paragraph='Discover the most outstanding NFTs in all topics of life.'
             />
-            <AudioLive />
-            <FollowerTab creators={topCreatorsArr} />
-            <Slider />
-            <Collection />
-            <Title
+            <AudioLive /> */}
+            {/* <FollowerTab creators={topCreatorsArr} /> */}
+            {/* <Slider /> */}
+            {/* <Collection /> */}
+            {/* <Title
                 heading='Featured NFTs'
                 paragraph='Discover the most outstanding NFTs in all topics of life.'
             />
-            <Filter />
+            <Filter /> */}
             {isLoading ? (
                 <Loading />
             ) : nfts.length ? (
@@ -69,13 +69,13 @@ const Home = () => {
             ) : (
                 <Empty />
             )}
-            <Title
+            {/* <Title
                 heading='Browser by category'
                 paragraph='Explore the NFTs in the most featured categories.'
             />
-            <Category />
+            <Category /> */}
             <Brand />
-            <Video />
+            {/* <Video /> */}
             <Subscribe />
         </div>
     )

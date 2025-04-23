@@ -13,7 +13,7 @@ const Brand = () => {
         <div className={Style.Brand}>
             <div className={Style.Brand_box}>
                 <div className={Style.Brand_box_left}>
-                    <FaYinYang size={100} />
+                    {/* <FaYinYang size={100} /> */}
                     <h1>Earn free service charge with Yi</h1>
                     <p>A creative agency that lead and inspire.</p>
 

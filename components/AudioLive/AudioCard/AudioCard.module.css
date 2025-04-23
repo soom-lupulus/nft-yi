@@ -20,7 +20,7 @@ transition:  all .3s ease-in;
     display: flex;
     justify-content: space-between;
     line-height: 0;
-    z-index: 123;
+    z-index: var(--z-index-fixed);
 }
 
 .audioCard_box_like{
@@ -74,7 +74,7 @@ transition:  all .3s ease-in;
     display:  flex;
     padding-inline: 3rem;
     gap: 4rem;
-    z-index: 1234;
+    z-index: var(--z-index-fixed);
     align-items: center;
 }
 
@@ -98,7 +98,7 @@ transition:  all .3s ease-in;
     grid-column: 1 / -1;
     grid-row: 5 / -1;
 
-    z-index: 123;
+    z-index: var(--z-index-fixed);
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -14,7 +14,7 @@
     box-shadow: var(--box-shadow-2);
     border-radius: 1rem;
     padding: 2rem;
-    z-index: 1111;
+    z-index: var(--z-index-sticky);
     height: 90vh;
 }
 

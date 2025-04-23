@@ -14,24 +14,20 @@ import { RiSendPlaneFill } from 'react-icons/ri'
 import Style from './Footer.module.css'
 import images from '@/img'
 import { Discover, HelpCenter } from '../NavBar'
+import { FaYinYang } from 'react-icons/fa'
 
 const Footer = () => {
     return (
         <div className={Style.footer}>
             <div className={Style.footer_box}>
                 <div className={Style.footer_box_social}>
-                    <Image
-                        src={images.logo}
-                        alt='footer logo'
-                        height={100}
-                        width={100}
-                    ></Image>
+                    <FaYinYang size={30} />
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Ad aperiam corrupti molestias magnam sequi numquam
-                        repellendus inventore deserunt voluptates sunt esse
-                        placeat, hic, magni debitis qui vero doloremque tempore
-                        animi.
+                        This is an NFT trading market with the theme of China
+                        style, which is only for learning and demonstration.You
+                        can search here, upload NFT, or create NFT, but do never
+                        connect your wallet account with actual assets here and
+                        spend. I hope everyone has fun in this project!
                     </p>
                     <div className={Style.footer_social}>
                         <a href='#'>
@@ -66,16 +62,16 @@ const Footer = () => {
                     <h3>Subscribe</h3>
 
                     <div className={Style.subscribe_box}>
-                        <input type='email' placeholder='Enter ur email' />
+                        <input
+                            type='email'
+                            placeholder='enter your email to get in touch with us'
+                        />
                         <RiSendPlaneFill className={Style.subscribe_box_send} />
                     </div>
                     <div className={Style.subscribe_box_info}>
                         <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing
-                            elit. Esse explicabo quod necessitatibus natus
-                            consequatur neque quae dolorum, modi, hic ducimus
-                            aperiam, facilis ipsa velit tempore repellat! Ut
-                            sint saepe porro.
+                            Maybe you will find something happens or something
+                            never happens after entering your email
                         </p>
                     </div>
                 </div>

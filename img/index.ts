@@ -57,8 +57,16 @@ import hl from './hl.png'
 import avatar from './avatar.png'
 import empty from './empty.svg'
 import landscape from './landscape.svg'
+import trading_c from './trading_c.svg'
+import search_c from './search_c.svg'
+import upload_c from './upload_c.svg'
+import wallet_c from './wallet_c.svg'
 
 export default {
+  trading_c,
+  search_c,
+  upload_c,
+  wallet_c,
   hero2,
   provider1,
   provider2,

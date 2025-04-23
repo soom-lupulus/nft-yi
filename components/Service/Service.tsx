@@ -10,7 +10,7 @@ const Service = () => {
             <div className={Style.service_box}>
                 <div className={Style.service_box_item}>
                     <Image
-                        src={images.service1}
+                        src={images.wallet_c}
                         alt='Filter & Discover'
                         width={100}
                         height={100}
@@ -18,47 +18,47 @@ const Service = () => {
                     <p className={Style.service_box_item_step}>
                         <span>Step 1</span>
                     </p>
-                    <h3>Filter & Discover</h3>
-                    <p>Connect with wallet, discover, buy NFTs, sell you NFT money</p>
+                    <h3>Connect with wallet</h3>
+                    <p>Connect your wallet and join the NFT family</p>
                 </div>
                 <div className={Style.service_box_item}>
                     <Image
-                        src={images.service2}
+                        src={images.search_c}
                         alt='Filter & Discover'
                         width={100}
                         height={100}
                     ></Image>
                     <p className={Style.service_box_item_step}>
-                        <span>Step 1</span>
+                        <span>Step 2</span>
                     </p>
-                    <h3>Filter & Discover</h3>
-                    <p>Connect with wallet, discover, buy NFTs, sell you NFT money</p>
+                    <h3>Discover NFTs</h3>
+                    <p>Search for NFTs you like and check it out</p>
                 </div>
                 <div className={Style.service_box_item}>
                     <Image
-                        src={images.service3}
+                        src={images.trading_c}
                         alt='Connect Wallet'
                         width={100}
                         height={100}
                     ></Image>
                     <p className={Style.service_box_item_step}>
-                        <span>Step 1</span>
+                        <span>Step 3</span>
                     </p>
-                    <h3>Connect Wallet</h3>
-                    <p>Connect with wallet, discover, buy NFTs, sell you NFT money</p>
+                    <h3>Start trading</h3>
+                    <p>Try to own it and start your Frist NFT trading</p>
                 </div>
                 <div className={Style.service_box_item}>
                     <Image
-                        src={images.service4}
+                        src={images.upload_c}
                         alt='Filter & Discover'
                         width={100}
                         height={100}
                     ></Image>
                     <p className={Style.service_box_item_step}>
-                        <span>Step 1</span>
+                        <span>Step 4</span>
                     </p>
-                    <h3>Start trading</h3>
-                    <p>Connect with wallet, discover, buy NFTs, sell you NFT money</p>
+                    <h3>Mint your NFTs</h3>
+                    <p>Mint your own NFT and make it popular</p>
                 </div>
             </div>
         </div>
