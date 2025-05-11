@@ -27,7 +27,7 @@ const SearchBar = ({
                 <BsSearch className={Style.SearchBar_box_icon} />
                 <input
                     type='text'
-                    placeholder='Type yout keyword...'
+                    placeholder='Type your keyword...'
                     value={searchValue}
                     onInput={e => setSearchValue(e.currentTarget.value)}
                     onChange={e => setSearchValue(e.currentTarget.value)}

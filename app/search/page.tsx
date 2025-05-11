@@ -26,7 +26,7 @@ const searchPage = () => {
             ) : (
                 <Empty />
             )}
-            <Slider />
+            {/* <Slider /> */}
             <Brand />
         </div>
     )

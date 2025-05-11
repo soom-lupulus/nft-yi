@@ -32,6 +32,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@metamask/providers": "^21.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@tailwindcss/postcss": "^4",
     "@typechain/ethers-v6": "^0.5.1",

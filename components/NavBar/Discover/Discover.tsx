@@ -18,10 +18,10 @@ const Discover = () => {
             name: 'Search',
             link: 'search',
         },
-        // {
-        //     name: 'Author Profile',
-        //     link: 'author',
-        // },
+        {
+            name: 'Author Profile',
+            link: 'author',
+        },
         // {
         //     name: 'NFT Detail',
         //     link: 'NFT-details',

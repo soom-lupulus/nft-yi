@@ -12,7 +12,7 @@ contract NFTMarketplace is ERC721URIStorage, ERC2981 {
     // 卖出数量
     uint256 private _itemsSold;
     // 主体人
-    address payable owner;
+    address payable public owner;
     // NFT藏品映射
     mapping(uint256 => MarketItem) private idMarketItem;
     // 手续费
@@ -73,6 +73,9 @@ contract NFTMarketplace is ERC721URIStorage, ERC2981 {
         address addr,
         uint256 amount
     ) public view returns (bool) {
+        if(merkleRoot == bytes32(0)){
+            return false;
+        }
         bytes32 leaf = keccak256(
             bytes.concat(keccak256(abi.encode(addr, amount)))
         );
@@ -247,7 +250,7 @@ contract NFTMarketplace is ERC721URIStorage, ERC2981 {
         uint256 tokenId,
         bytes32[] memory proof
     ) public payable {
-        MarketItem memory item = idMarketItem[tokenId];
+        MarketItem storage item = idMarketItem[tokenId];
         // 白名单检测
         bool isWhitelisted = checkWhitelisted(proof, msg.sender, 1);
         // 计算版税
@@ -257,13 +260,13 @@ contract NFTMarketplace is ERC721URIStorage, ERC2981 {
             royaltyAmount = 0.0001 ether;
             require(
                 msg.value >= royaltyAmount + listingPrice,
-                "Insufficient payment"
+                "Insufficient payment at royalty"
             );
         }
         // 分配资金
         if (!isWhitelisted) {
             // 普通用户
-            require(msg.value == item.price, "Insufficient payment");
+            require(msg.value == item.price, "Insufficient payment for normal user");
             payable(owner).transfer(listingPrice); // 支付平台手续费
             if (!isRoyaltyExempt[tokenId]) {
                 payable(item.creator).transfer(royaltyAmount); // 支付作者版税
@@ -277,7 +280,7 @@ contract NFTMarketplace is ERC721URIStorage, ERC2981 {
         // 白名单免手续费、价格九折
         else {
             uint256 discountPrice = (item.price * 90) / 100;
-            require(msg.value == discountPrice, "Insufficient payment");
+            require(msg.value == discountPrice, "Insufficient payment for vip user");
             if (!isRoyaltyExempt[tokenId]) {
                 payable(item.creator).transfer(royaltyAmount); // 支付作者版税
                 payable(item.seller).transfer(
