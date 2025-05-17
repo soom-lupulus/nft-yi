@@ -27,6 +27,7 @@ import { NFTTabs } from '..'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 import toast from 'react-hot-toast'
+import { expectFunc } from '@/utils'
 
 const NFTDescription = () => {
     const [social, setSocial] = useState(false)
@@ -234,14 +235,14 @@ const NFTDescription = () => {
                                     Style.NFTDescription_box_profile_box_left_info
                                 }
                             >
-                                <small>Creator</small> <br />
+                                <small>Seller</small> <br />
                                 <span>
                                     {searchParams.get('seller')} <MdVerified />
                                 </span>
                             </div>
                         </div>
 
-                        <div
+                        {/* <div
                             className={
                                 Style.NFTDescription_box_profile_box_right
                             }
@@ -266,7 +267,7 @@ const NFTDescription = () => {
                                     Karli Costa <MdVerified />
                                 </span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className={Style.NFTDescription_box_profile_biding}>
@@ -359,12 +360,12 @@ const NFTDescription = () => {
                             <Button
                                 icon=<FaPercentage />
                                 btnName='Make offer'
-                                handleClick={() => {}}
+                                handleClick={expectFunc}
                                 classStyle={Style.button}
                             />
                         </div>
 
-                        <div
+                        {/* <div
                             className={
                                 Style.NFTDescription_box_profile_biding_box_tabs
                             }
@@ -376,9 +377,9 @@ const NFTDescription = () => {
                                 Provanance
                             </button>
                             <button onClick={() => openOwmer()}>Owner</button>
-                        </div>
+                        </div> */}
 
-                        {history && (
+                        {/* {history && (
                             <div
                                 className={
                                     Style.NFTDescription_box_profile_biding_box_card
@@ -408,7 +409,7 @@ const NFTDescription = () => {
                                     icon=<MdVerified />
                                 />
                             </div>
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div>

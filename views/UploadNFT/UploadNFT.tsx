@@ -14,6 +14,7 @@ import { Button } from '@/components'
 import { DropZone } from './index'
 import { NFTMarketplaceContextType } from '@/context/typing'
 import { UploadResponse } from 'pinata'
+import toast from 'react-hot-toast'
 
 type IUploadNFTProps = Pick<
     NFTMarketplaceContextType,
@@ -23,12 +24,12 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
     const [price, setPrice] = useState<string>('')
     const [active, setActive] = useState(0)
     const [name, setName] = useState('')
-    const [website, setWebsite] = useState('')
+    // const [website, setWebsite] = useState('')
     const [description, setDescription] = useState('')
-    const [royalty, setRoyalty] = useState('')
-    const [fileSize, setFileSize] = useState('')
+    const [royalty, setRoyalty] = useState<number>()
+    // const [fileSize, setFileSize] = useState('')
     const [category, setCategory] = useState(0)
-    const [properties, setProperties] = useState('')
+    // const [properties, setProperties] = useState('')
     const [image, setImage] = useState<string>('')
     const [uploadResponse, setUploadResponse] = useState<UploadResponse>(
         {} as UploadResponse,
@@ -68,12 +69,12 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                 heading='Drag & drop file'
                 subHeading='or Browse media on your device'
                 name={name}
-                website={website}
+                // website={website}
                 description={description}
                 royalty={royalty}
-                fileSize={fileSize}
+                // fileSize={fileSize}
                 category={category}
-                properties={properties}
+                // properties={properties}
                 image={images.upload}
                 setImage={setImage}
                 uploadToIPFS={uploadToIPFS}
@@ -82,16 +83,16 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
 
             <div className={Style.upload_box}>
                 <div className={formStyle.Form_box_input}>
-                    <label htmlFor='nft'>Item Name</label>
+                    <label htmlFor='nft'>NFT Name</label>
                     <input
                         type='text'
-                        placeholder='ygg'
+                        placeholder='set your NFT name'
                         className={formStyle.Form_box_input_userName}
                         onChange={e => setName(e.target.value)}
                     />
                 </div>
 
-                <div className={formStyle.Form_box_input}>
+                {/* <div className={formStyle.Form_box_input}>
                     <label htmlFor='website'>Website</label>
                     <div className={formStyle.Form_box_input_box}>
                         <div className={formStyle.Form_box_input_box_icon}>
@@ -111,7 +112,7 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                         it. You are welcome to link to your own webpage with
                         more details.
                     </p>
-                </div>
+                </div> */}
 
                 <div className={formStyle.Form_box_input}>
                     <label htmlFor='description'>Description</label>
@@ -123,16 +124,16 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                         placeholder='something about yourself in few words'
                         onChange={e => setDescription(e.target.value)}
                     ></textarea>
-                    <p>
-                        The description will be included on the item's detail
+                    {/* <p>
+                        The description will be included on the items detail
                         page underneath its image. Markdown syntax is supported.
-                    </p>
+                    </p> */}
                 </div>
 
-                <div className={formStyle.Form_box_input}>
+                {/* <div className={formStyle.Form_box_input}>
                     <label htmlFor='name'>Choose collection</label>
                     <p className={Style.upload_box_input_para}>
-                        Choose an exiting collection or create a new one
+                        Choose an exiting liked collection
                     </p>
 
                     <div className={Style.upload_box_slider_div}>
@@ -174,7 +175,7 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 <div className={formStyle.Form_box_input_social}>
                     <div className={formStyle.Form_box_input}>
@@ -184,13 +185,34 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                                 <FaPercent />
                             </div>
                             <input
-                                type='text'
-                                placeholder='20%'
-                                onChange={e => setRoyalty(e.target.value)}
+                                type='number'
+                                placeholder='Max 20%'
+                                onChange={e => {
+                                    const value = e.target.value
+                                    const parsedValue =
+                                        value === '' ? null : parseFloat(value)
+
+                                    if (parsedValue === null) {
+                                        setRoyalty(0)
+                                    } else if (isNaN(parsedValue)) {
+                                        toast.error('请输入有效的数字')
+                                    } else if (
+                                        parsedValue < 0 ||
+                                        parsedValue > 100
+                                    ) {
+                                        toast.error(
+                                            '版税百分比必须在 0 到 100 之间',
+                                        )
+                                    } else {
+                                        setRoyalty(
+                                            Math.floor(parsedValue * 100),
+                                        ) // 向下取整，转换为整数
+                                    }
+                                }}
                             />
                         </div>
                     </div>
-                    <div className={formStyle.Form_box_input}>
+                    {/* <div className={formStyle.Form_box_input}>
                         <label htmlFor='size'>Size</label>
                         <div className={formStyle.Form_box_input_box}>
                             <div className={formStyle.Form_box_input_box_icon}>
@@ -202,8 +224,8 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                                 onChange={e => setFileSize(e.target.value)}
                             />
                         </div>
-                    </div>
-                    <div className={formStyle.Form_box_input}>
+                    </div> */}
+                    {/* <div className={formStyle.Form_box_input}>
                         <label htmlFor='Propertie'>Propertie</label>
                         <div className={formStyle.Form_box_input_box}>
                             <div className={formStyle.Form_box_input_box_icon}>
@@ -215,7 +237,7 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                                 onChange={e => setProperties(e.target.value)}
                             />
                         </div>
-                    </div>
+                    </div> */}
                     <div className={formStyle.Form_box_input}>
                         <label htmlFor='Price'>Price</label>
                         <div className={formStyle.Form_box_input_box}>

@@ -1,5 +1,5 @@
+'use client'
 import React from 'react'
-import Image from 'next/image'
 import {
     TiSocialFacebook,
     TiSocialLinkedin,
@@ -12,9 +12,9 @@ import {
 import { RiSendPlaneFill } from 'react-icons/ri'
 //
 import Style from './Footer.module.css'
-import images from '@/img'
 import { Discover, HelpCenter } from '../NavBar'
 import { FaYinYang } from 'react-icons/fa'
+import { expectFunc } from '@/utils'
 
 const Footer = () => {
     return (
@@ -65,14 +65,15 @@ const Footer = () => {
                         <input
                             type='email'
                             placeholder='enter your email to get in touch with us'
+                            onChange={expectFunc}
                         />
                         <RiSendPlaneFill className={Style.subscribe_box_send} />
                     </div>
                     <div className={Style.subscribe_box_info}>
-                        <p>
+                        {/* <p>
                             Maybe you will find something happens or something
                             never happens after entering your email
-                        </p>
+                        </p> */}
                     </div>
                 </div>
             </div>

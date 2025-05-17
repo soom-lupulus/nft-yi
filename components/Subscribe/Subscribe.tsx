@@ -29,7 +29,7 @@ const Subscribe = () => {
                         <small>Get premium magazines</small>
                     </div>
                     <div className={Style.subscribe_box_left_input}>
-                        <input type='email' placeholder='Enter your eail' />
+                        <input type='email' placeholder='Enter your email' />
                         <RiSendPlaneFill
                             className={Style.subscribe_box_left_input_icon}
                         />

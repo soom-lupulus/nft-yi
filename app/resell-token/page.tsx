@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 //
 import Style from './resellToken.module.css'
-import formStyle from '@/AccountPage/Form/Form.module.css'
+import formStyle from '@/views/AccountPage/Form/Form.module.css'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { pinata } from '@/utils/config'
@@ -22,21 +22,19 @@ const ResellToken: React.FC = () => {
     const receivedData = JSON.parse(data || '{}')
     const { id, tokenURI, price: prePrice } = receivedData
 
-    const fetchNFT = async () => {
-        const allFiles = await pinata.files.public.list()
-        console.log(allFiles)
-    }
-
     const onResell = async () => {
-        if(!tokenURI || !latestPrice || !id) return toast.error('参数不全！')
-        await createSale(tokenURI, latestPrice, true, id)
-        toast.success('上架成功!')
-        router.push('/author')
+        if (!tokenURI || !latestPrice || !id) return toast.error('参数不全！')
+        try {
+            await createSale(tokenURI, latestPrice, '', true, id)
+            toast.success('上架成功!')
+            router.push('/author')
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error(`上架失败: ${error.message || '未知错误'}`) // 显示错误消息
+            }
+            console.error('上架失败:', error) // 记录错误信息
+        }
     }
-
-    useEffect(() => {
-        // fetchNFT()
-    }, [])
     return (
         <div className={Style.reSellToken}>
             <div className={Style.reSellToken_box}>

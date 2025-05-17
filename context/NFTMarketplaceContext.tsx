@@ -137,12 +137,15 @@ export const NFTMarketplaceProvider = ({
                 console.log('首次连接成功！已连接账户:', accounts[0])
                 toast.success(`连接账户成功! `)
                 // 同步数据库信息
-                fetch(`/api/v1/users?walletAddress=${accounts[0]}&username=匿名用户`, {
-                    method: 'POST',
-                })
+                fetch(
+                    `/api/v1/users?walletAddress=${accounts[0]}&username=匿名用户`,
+                    {
+                        method: 'POST',
+                    },
+                )
                     .then(res => res.json())
                     .then(res => {
-                        console.log(res);
+                        console.log(res)
                     })
             } else {
                 console.log('accounts are not found!')
@@ -185,13 +188,15 @@ export const NFTMarketplaceProvider = ({
         const handleAccountsChanged = (accounts: string[]) => {
             console.log('Accounts changed:', accounts)
             setCurrentAccount(accounts[0])
-            getBalance(accounts[0])
-                .then(eth => {
-                    setAccountEth(eth)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+            if (accounts[0]) {
+                getBalance(accounts[0])
+                    .then(eth => {
+                        setAccountEth(eth)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
         }
 
         const handleChainChanged = (chainId: string) => {
@@ -288,7 +293,7 @@ export const NFTMarketplaceProvider = ({
     const createSale = async (
         url: string,
         price: string,
-        royalty: string,
+        royalty: number,
         isReselling?: boolean,
         id?: BigNumberish,
     ) => {
@@ -320,6 +325,7 @@ export const NFTMarketplaceProvider = ({
             router.push('/search')
         } catch (error) {
             console.log(error)
+            throw error
         }
     }
 

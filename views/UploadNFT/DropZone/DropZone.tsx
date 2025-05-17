@@ -65,6 +65,7 @@ const DropZone = ({
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
+        maxFiles: 1,
         accept: {
             'image/jpeg': ['.jpg', '.jpeg'],
             'image/tiff': ['.tif', '.tiff'],
@@ -78,9 +79,21 @@ const DropZone = ({
         <div className={Style.DropZone}>
             {loading ? (
                 <Loading />
+            ) : fileUrl ? (
+                <aside className={Style.DropZone_box_aside}>
+                    <div className={Style.DropZone_box_aside_box}>
+                        <Image
+                            unoptimized
+                            src={fileUrl}
+                            alt='nft image'
+                            width={200}
+                            height={200}
+                        />
+                    </div>
+                </aside>
             ) : (
                 <div className={Style.DropZone_box} {...getRootProps()}>
-                    <input {...getInputProps()} />
+                    <input {...getInputProps({multiple: false})} />
                     <div className={Style.DropZone_box_input}>
                         <p>{title}</p>
                         <div className={Style.DropZone_box_input_img}>
@@ -96,71 +109,6 @@ const DropZone = ({
                         <p>{subHeading}</p>
                     </div>
                 </div>
-            )}
-
-            {fileUrl && (
-                <aside className={Style.DropZone_box_aside}>
-                    <div className={Style.DropZone_box_aside_box}>
-                        <Image
-                            unoptimized
-                            src={fileUrl}
-                            alt='nft image'
-                            width={200}
-                            height={200}
-                        />
-
-                        <div className={Style.DropZone_box_aside_box_preview}>
-                            <div
-                                className={
-                                    Style.DropZone_box_aside_box_preview_one
-                                }
-                            >
-                                <p>
-                                    <samp>NFT Name:</samp>
-                                    {name || ''}
-                                </p>
-                                <p>
-                                    <samp>Website:</samp>
-                                    {website || ''}
-                                </p>
-                            </div>
-
-                            <div
-                                className={
-                                    Style.DropZone_box_aside_box_preview_two
-                                }
-                            >
-                                <p>
-                                    <span>Description</span>
-                                    {description || ''}
-                                </p>
-                            </div>
-
-                            <div
-                                className={
-                                    Style.DropZone_box_aside_box_preview_three
-                                }
-                            >
-                                <p>
-                                    <span>Royalties</span>
-                                    {royalties || ''}
-                                </p>
-                                <p>
-                                    <span>FileSize</span>
-                                    {fileSize || ''}
-                                </p>
-                                <p>
-                                    <span>Properties</span>
-                                    {properties || ''}
-                                </p>
-                                <p>
-                                    <span>Category</span>
-                                    {category || ''}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
             )}
         </div>
     )

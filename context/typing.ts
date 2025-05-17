@@ -12,7 +12,7 @@ export type NFTInfoType = {
 
 export type NFTFormType = {
     price: string
-    royalty: string
+    royalty: number
     name: string
     description: string
     image: string
@@ -29,7 +29,7 @@ export type NFTMarketplaceContextType = {
     createNFT: (NFTData: {
         price: string
         name: string
-        royalty: string
+        royalty: number
         description: string
         image: string
         uploadResponse: UploadResponse
@@ -37,7 +37,7 @@ export type NFTMarketplaceContextType = {
     createSale: (
         url: string,
         price: string,
-        royalty: string,
+        royalty: number,
         isReselling?: boolean,
         id?: string,
     ) => void
