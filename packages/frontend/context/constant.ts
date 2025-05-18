@@ -1,4 +1,5 @@
-import nftMarketplace from '@/contract/artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
+// import nftMarketplace from '../../contract/artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
+import nftMarketplace from './NFTMarketplace.json'
 
 export const nftMarketplaceAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
 export const nftMarketplaceAbi = nftMarketplace.abi

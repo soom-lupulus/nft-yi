@@ -93,7 +93,7 @@ const DropZone = ({
                 </aside>
             ) : (
                 <div className={Style.DropZone_box} {...getRootProps()}>
-                    <input {...getInputProps({multiple: false})} />
+                    <input {...getInputProps({ multiple: false })} />
                     <div className={Style.DropZone_box_input}>
                         <p>{title}</p>
                         <div className={Style.DropZone_box_input_img}>

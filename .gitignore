@@ -40,7 +40,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-tempo.txt
+
 
 # prisma
 generated
+
+packages/contract/node_modules
+packages/frontend/node_modules
+
+packages/frontend/.next
+packages/frontend/tempo.txt

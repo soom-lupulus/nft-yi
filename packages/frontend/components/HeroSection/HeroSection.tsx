@@ -19,7 +19,7 @@ const HeroSection = () => {
                         Discover the most outstanding NFTs in all topic of
                         life.Creative your NFTs and sell them
                     </p>
-                    <Link href={{pathname: '/search'}}>
+                    <Link href={{ pathname: '/search' }}>
                         <Button
                             btnName='Start your search'
                             handleClick={() => {}}

@@ -12,7 +12,7 @@ import { Discover, HelpCenter, Notification, Profile, SideBar } from './index'
 import { Button } from '@/components'
 import images from '@/img'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
-import { FaYinYang } from "react-icons/fa";
+import { FaYinYang } from 'react-icons/fa'
 import { useScrollTrigger, useClickOutside } from '@/hooks'
 
 const NavBar = () => {

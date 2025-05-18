@@ -10,7 +10,7 @@ import {
 } from './constant'
 import { pinata } from '@/utils/config'
 import { UploadResponse } from 'pinata'
-import { NFTMarketplace as INFTMarketplace } from '@/contract/typechain-types/index'
+import { NFTMarketplace as INFTMarketplace } from '@contract/typechain-types'
 import toast from 'react-hot-toast'
 import { BigNumberish } from 'ethers'
 import { generateMerkleProof } from '@/utils'

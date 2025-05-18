@@ -17,9 +17,7 @@ import { TbDownloadOff } from 'react-icons/tb'
 import images from '@/img'
 import Style from './SideBar.module.css'
 import Button from '@/components/Button/Button'
-import {
-    NFTMarketplaceContext,
-} from '@/context/NFTMarketplaceContext'
+import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 
 type IPropTypes = {
     setOpenSideMenu: React.Dispatch<React.SetStateAction<boolean>>

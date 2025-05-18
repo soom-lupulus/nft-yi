@@ -7,7 +7,11 @@ import { Banner, NFTCardTwo } from '@/views/collectionPage/collectionIndex'
 import { Brand, Title } from '@/components/'
 import FollowerTabCard from '@/components/FollowerTab/FollowerTabCard/FollowerTabCard'
 import images from '@/img'
-import { AuthorProfileCard, AuthorTaps, AuthorNFTCardBox } from '@/views/authorPage'
+import {
+    AuthorProfileCard,
+    AuthorTaps,
+    AuthorNFTCardBox,
+} from '@/views/authorPage'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 
 const Author = () => {
