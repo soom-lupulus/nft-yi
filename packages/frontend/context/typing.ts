@@ -1,4 +1,5 @@
 import { UploadResponse } from 'pinata'
+import React, { SetStateAction } from 'react'
 
 export type NFTInfoType = {
     tokenId: number
@@ -19,10 +20,16 @@ export type NFTFormType = {
     uploadResponse: UploadResponse
 }
 
+export type AccountInfo = {
+    account: string
+    eth: string
+}
+
 export type NFTMarketplaceContextType = {
     titleData: string
     currentAccount: string
-    accountEth: string
+    setCurrentAccount: React.Dispatch<SetStateAction<string>>
+    accounts: AccountInfo[]
     checkIfWalletConnected: () => void
     connectWallect: () => void
     uploadToIPFS: (file: File) => Promise<UploadResponse>

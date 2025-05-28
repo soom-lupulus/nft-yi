@@ -2,6 +2,7 @@
 import nftMarketplace from './NFTMarketplace.json'
 
 export const nftMarketplaceAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+// export const nftMarketplaceAddress = '0xC9cFA357c514E7161616ebf7F3052CfEE992EE1c'
 export const nftMarketplaceAbi = nftMarketplace.abi
 /**
  * @link https://ethereum.org/en/developers/docs/apis/json-rpc/

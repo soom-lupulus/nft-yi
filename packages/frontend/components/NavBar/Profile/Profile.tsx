@@ -1,56 +1,80 @@
 'use client'
-import React, { Dispatch, SetStateAction, useRef } from 'react'
+import React, { Dispatch, SetStateAction, useContext, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FaUserAlt, FaRegImage, FaUserEdit } from 'react-icons/fa'
 import { MdHelpCenter } from 'react-icons/md'
 import { TbDownloadOff, TbDownload } from 'react-icons/tb'
-import { MdLogout } from "react-icons/md";
+import { MdLogout } from 'react-icons/md'
+import { FaCheck } from 'react-icons/fa6'
 //
 import Style from './Profile.module.css'
 import images from '@/img'
 import { useClickOutside } from '@/hooks'
+import { AccountInfo } from '@/context/typing'
+import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
+import toast from 'react-hot-toast'
 
 const Profile = ({
-    currentAccount,
-    accountEth,
     setProfile,
-    logout,
 }: {
-    currentAccount: string
-    accountEth: string
     setProfile: Dispatch<SetStateAction<boolean>>
-    logout: () => void
 }) => {
+    const {
+        currentAccount,
+        accounts,
+        setCurrentAccount,
+        connectWallect,
+        checkIfWalletConnected,
+        logout,
+    } = useContext(NFTMarketplaceContext)
     const wrapperRef = useRef<HTMLDivElement>(null)
     useClickOutside(wrapperRef, () => setProfile(false))
+
+    const toggleAccount = (account: string) => {
+        if (account !== currentAccount) {
+            setCurrentAccount(account)
+            toast.success('账户已切换！')
+        }
+    }
+
     return (
         <div className={Style.profile} ref={wrapperRef}>
-            <div className={Style.profile_account}>
-                <Image
-                    src={images.avatar}
-                    alt='user profile'
-                    width={50}
-                    height={50}
-                    className={Style.profile_account_img}
-                />
-                <div className={Style.profile_account_info}>
-                    <p
-                        title={currentAccount}
-                        className='c_ellipsis'
-                        style={{
-                            width: '10rem',
-                            lineHeight: 1,
-                        }}
-                    >
-                        {currentAccount}
-                    </p>
-                    <small title={accountEth}>
-                        ETH：{accountEth.slice(0, 15)}...{' '}
-                    </small>
+            {accounts.map(i => (
+                <div
+                    className={Style.profile_account}
+                    key={i.account}
+                    onClick={() => toggleAccount(i.account)}
+                >
+                    <Image
+                        src={images.avatar}
+                        alt='user profile'
+                        width={30}
+                        height={30}
+                        className={Style.profile_account_img}
+                    />
+                    <div className={Style.profile_account_info}>
+                        <p
+                            title={i.account}
+                            className='c_ellipsis'
+                            style={{
+                                width: '10rem',
+                                lineHeight: 1,
+                            }}
+                        >
+                            {i.account}
+                        </p>
+                        <small title={i.eth}>
+                            ETH：{i.eth.slice(0, 15)}...{' '}
+                        </small>
+                    </div>
+                    {currentAccount === i.account && <FaCheck />}
                 </div>
-            </div>
-            <div className={Style.profile_menu} onClick={() => setProfile(false)}>
+            ))}
+            <div
+                className={Style.profile_menu}
+                onClick={() => setProfile(false)}
+            >
                 <div className={Style.profile_menu_one}>
                     <div className={Style.profile_menu_one_item}>
                         <FaUserAlt />

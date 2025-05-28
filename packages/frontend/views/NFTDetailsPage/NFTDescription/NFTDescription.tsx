@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import {
     MdVerified,
@@ -23,11 +23,11 @@ import { BiTransferAlt, BiDollar } from 'react-icons/bi'
 import Style from './NFTDescription.module.css'
 import images from '@/img'
 import { Button } from '@/components'
-import { NFTTabs } from '..'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
 import toast from 'react-hot-toast'
 import { expectFunc } from '@/utils'
+import { ButtonHandle } from '@/components/Button/Button'
 
 const NFTDescription = () => {
     const [social, setSocial] = useState(false)
@@ -35,6 +35,7 @@ const NFTDescription = () => {
     const [history, setHistory] = useState(true)
     const [provanance, setProvanance] = useState(false)
     const [owner, setOwner] = useState(false)
+    const buyBenRef = useRef<ButtonHandle>(null)
 
     const searchParams = useSearchParams()
     const { currentAccount, buyNFT } = useContext(NFTMarketplaceContext)
@@ -64,6 +65,9 @@ const NFTDescription = () => {
     ]
 
     const isSeller = useMemo(() => {
+        console.log(currentAccount)
+        console.log(currentAccount == '')
+
         return (
             currentAccount.toLowerCase() ===
             searchParams.get('seller')?.toLowerCase()
@@ -124,14 +128,19 @@ const NFTDescription = () => {
      * 点击购买NFT
      * @returns
      */
-    const onBuyThisClick = () => {
-        const price = searchParams.get('price')
-        const tokenId = searchParams.get('tokenId')
-        if (!price || !tokenId) return toast.error('参数信息缺失！')
-        buyNFT({
-            price,
-            tokenId,
-        })
+    const onBuyThisClick = async () => {
+        try {
+            buyBenRef.current?.setLoading(true)
+            const price = searchParams.get('price')
+            const tokenId = searchParams.get('tokenId')
+            if (!price || !tokenId) return toast.error('参数信息缺失！')
+            await buyNFT({
+                price,
+                tokenId,
+            })
+        } finally{
+            buyBenRef.current?.setLoading(false)
+        }
     }
     const onResellClick = () => {
         const image = searchParams.get('image')
@@ -354,6 +363,7 @@ const NFTDescription = () => {
                                     btnName='Buy This'
                                     handleClick={onBuyThisClick}
                                     classStyle={Style.button}
+                                    ref={buyBenRef}
                                 />
                             )}
 

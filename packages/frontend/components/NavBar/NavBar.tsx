@@ -18,7 +18,7 @@ import { useScrollTrigger, useClickOutside } from '@/hooks'
 const NavBar = () => {
     const {
         currentAccount,
-        accountEth,
+        accounts,
         connectWallect,
         checkIfWalletConnected,
         logout,
@@ -189,14 +189,7 @@ const NavBar = () => {
                                         Style.navbar_container_right_profile
                                     }
                                 />
-                                {profile && (
-                                    <Profile
-                                        currentAccount={currentAccount}
-                                        accountEth={accountEth}
-                                        setProfile={setProfile}
-                                        logout={logout}
-                                    />
-                                )}
+                                {profile && <Profile setProfile={setProfile}/>}
                             </div>
                         </div>
                     )}

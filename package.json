@@ -9,10 +9,12 @@
     "lint": "next lint",
     "contract:node": "cd packages/contract && npx hardhat node",
     "contract:compile": "cd packages/contract && npx hardhat compile && cp ./artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json ../frontend/context",
-    "contract:deploy": "cd packages/contract && npx hardhat run scripts/deploy.ts --network localhost"
+    "contract:deploy_local": "cd packages/contract && npx hardhat run scripts/deploy.ts --network localhost",
+    "contract:deploy_sepolia": "cd packages/contract && npx hardhat run scripts/deploy.ts --network sepolia",
+    "contract:verify_sepolia": "cd packages/contract && npx hardhat verify --network sepolia [ur contract address]"
   },
   "devDependencies": {
-    "ethers": "^6.13.5",
-    "@openzeppelin/merkle-tree": "^1.0.8"
+    "@openzeppelin/merkle-tree": "^1.0.8",
+    "ethers": "^6.13.5"
   }
 }

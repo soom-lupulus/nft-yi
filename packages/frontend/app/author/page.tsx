@@ -73,20 +73,22 @@ const Author = () => {
     >([])
 
     useEffect(() => {
-        fetchMyNFTsOrListedNFTs('fetchItemListed').then(nfts => {
-            console.log(nfts)
-            setNFTs(nfts)
-        })
-        fetchMyNFTsOrListedNFTs('fetchMyNFTs').then(nfts => {
-            console.log(nfts)
-            setMyNFTs(nfts)
-        })
-    }, [])
+        if(currentAccount){
+            fetchMyNFTsOrListedNFTs('fetchItemListed').then(nfts => {
+                console.log(nfts)
+                setNFTs(nfts)
+            })
+            fetchMyNFTsOrListedNFTs('fetchMyNFTs').then(nfts => {
+                console.log(nfts)
+                setMyNFTs(nfts)
+            })
+        }
+    }, [currentAccount])
 
     return (
         <div className={Style.author}>
             <Banner bannerImage={images.creatorbackground2} />
-            <AuthorProfileCard currentAccount={currentAccount} />
+            {/* <AuthorProfileCard currentAccount={currentAccount} /> */}
             <AuthorTaps
                 setCollectiables={setCollectiables}
                 setCreated={setCreated}
@@ -104,7 +106,7 @@ const Author = () => {
                 nfts={nfts}
                 myNFTs={myNFTs}
             />
-            <Title
+            {/* <Title
                 heading='Popular Creators'
                 paragraph='Click on music icon and enjoy NTF music or audio
 '
@@ -113,7 +115,7 @@ const Author = () => {
                 {followerArray.map((el, i) => (
                     <FollowerTabCard i={i} el={el} key={i + 1} />
                 ))}
-            </div>
+            </div> */}
 
             <Brand />
         </div>

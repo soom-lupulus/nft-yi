@@ -40,8 +40,8 @@
     "typescript": "^5"
   },
   "peerDependencies": {
-    "ethers": "^6.13.5",
-    "@openzeppelin/merkle-tree": "^1.0.8"
+    "@openzeppelin/merkle-tree": "^1.0.8",
+    "ethers": "^6.13.5"
   },
   "keywords": [],
   "author": "",

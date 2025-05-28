@@ -14,9 +14,9 @@
 
 .profile_account{
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 2rem;
-    padding: 1.5rem;
+    padding: 0.5rem;
 }
 
 .profile_account_img{
@@ -24,7 +24,8 @@
 }
 
 .profile_account_info{
-    line-height: .3;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile_account_info p{

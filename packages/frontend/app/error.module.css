@@ -1,0 +1,14 @@
+.errWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    height: 30rem;
+    padding: 2rem;
+    gap: 1rem;
+}
+
+.errWrapper h3{
+    text-align: center;
+}

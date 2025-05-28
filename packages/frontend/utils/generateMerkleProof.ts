@@ -12,8 +12,8 @@ export const generateMerkleProof = async (userAddress: string): Promise<HexStrin
         ["address", "uint256"]
     );
 
-    console.log("Merkle Root:", tree.root);
-    console.log("Proof for address 0:", tree.getProof(0)); // 返回 []
+    // console.log("Merkle Root:", tree.root);
+    // console.log("Proof for address 0:", tree.getProof(0)); // 返回 []
     // console.log("Is valid?", tree.verify(0, whitelist[0])); // 返回 true
 
     // 3. 为用户生成证明

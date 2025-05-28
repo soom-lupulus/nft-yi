@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { MdOutlineHttp, MdOutlineAttachFile } from 'react-icons/md'
 import { FaPercent } from 'react-icons/fa'
 import { AiTwotonePropertySafety } from 'react-icons/ai'
@@ -15,6 +15,7 @@ import { DropZone } from './index'
 import { NFTMarketplaceContextType } from '@/context/typing'
 import { UploadResponse } from 'pinata'
 import toast from 'react-hot-toast'
+import { ButtonHandle } from '@/components/Button/Button'
 
 type IUploadNFTProps = Pick<
     NFTMarketplaceContextType,
@@ -34,6 +35,23 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
     const [uploadResponse, setUploadResponse] = useState<UploadResponse>(
         {} as UploadResponse,
     )
+    const mintBtnRef = useRef<ButtonHandle>(null)
+
+    const getDownToMint = debounce(300)(async () => {
+        mintBtnRef.current?.setLoading(true)
+        try {
+            await createNFT({
+                price,
+                description,
+                royalty,
+                image,
+                name,
+                uploadResponse,
+            })
+        } finally {
+            mintBtnRef.current?.setLoading(false)
+        }
+    })
 
     const categoryArry = [
         {
@@ -255,17 +273,9 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
 
                 <div className={Style.upload_box_btn}>
                     <Button
-                        btnName='Upload'
-                        handleClick={debounce(300)(async () =>
-                            createNFT({
-                                price,
-                                description,
-                                royalty,
-                                image,
-                                name,
-                                uploadResponse,
-                            }),
-                        )}
+                        ref={mintBtnRef}
+                        btnName='Mint'
+                        handleClick={getDownToMint}
                         classStyle={Style.upload_box_btn_style}
                     />
                     <Button
