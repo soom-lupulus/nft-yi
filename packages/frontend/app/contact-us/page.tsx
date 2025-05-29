@@ -85,8 +85,8 @@ const Contactus = () => {
                                 <textarea
                                     name=''
                                     id=''
-                                    cols='30'
-                                    rows='6'
+                                    cols={30}
+                                    rows={6}
                                     placeholder='something about yourself in few words'
                                 ></textarea>
                             </div>

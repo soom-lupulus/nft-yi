@@ -71,7 +71,7 @@ const LoginAndSignUp = () => {
           </div>
         </div>
 
-        <Button btnName="Continue" classStyle={Style.button} />
+        <Button btnName="Continue" classStyle={Style.button} handleClick={() => {}}/>
       </div>
     </div>
   );

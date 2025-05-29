@@ -1,13 +1,20 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 
 //INTERNAL IMPORT
 import Style from './SliderCard.module.css'
-import images from '@/img'
-import LikeProfile from '../../LikeProfile/LikeProfile'
 
-const SliderCard = ({ el, i }) => {
+const SliderCard = ({
+    el,
+    i,
+}: {
+    el: {
+        background: StaticImageData
+        user: StaticImageData
+    }
+    i: number
+}) => {
     return (
         <motion.div className={Style.sliderCard}>
             <div className={Style.sliderCard_box}>

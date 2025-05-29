@@ -171,6 +171,7 @@ export const NFTMarketplaceProvider = ({
             } else {
                 console.log('accounts are not found!')
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error.code === 4001) {
                 console.log('用户拒绝了授权')
@@ -420,7 +421,7 @@ export const NFTMarketplaceProvider = ({
                             price: unformattedPrice,
                         }) => {
                             const tokenURI = await contract.tokenURI(tokenId)
-                            const cid = tokenURI.match(/ipfs\/(.*)/)?.at(-1)!
+                            const cid = tokenURI.match(/ipfs\/(.*)/)?.at(-1)
                             return {
                                 tokenId,
                                 seller,
@@ -473,7 +474,7 @@ export const NFTMarketplaceProvider = ({
         )
 
         return () => {
-            typeof cleanup === 'function' && cleanup()
+            if (typeof cleanup === 'function') cleanup()
         }
     }, [])
 

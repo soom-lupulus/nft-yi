@@ -1,6 +1,7 @@
 'use client'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { NFTInfoType, NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
+import { NFTMarketplaceContext } from '@/context/NFTMarketplaceContext'
+import { NFTInfoType } from '@/context/typing'
 
 export default function useFetchNFTs() {
     const { fetchNFTs } = useContext(NFTMarketplaceContext)
@@ -21,7 +22,11 @@ export default function useFetchNFTs() {
     const filterNFTsByName = useCallback(
         (name: string) => {
             const filteredNFTs = nfts.filter(n => n.name.toLowerCase().includes(name.toLowerCase()))
-            !name ? setNFTs(nftsCopy) : setNFTs(filteredNFTs)
+            if (!name) {
+                setNFTs(nftsCopy)
+            } else {
+                setNFTs(filteredNFTs)
+            }
         },
         [nfts, nftsCopy],
     )

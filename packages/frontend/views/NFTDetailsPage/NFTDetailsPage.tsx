@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { Suspense, useEffect } from 'react'
 
 //INTERNAL IMPORT
 import { NFTDescription, NFTDetailsImg, NFTTabs } from './index'

@@ -57,7 +57,7 @@ const ConnectWallet = () => {
                         >
                             <Image
                                 src={el.provider}
-                                alt={el.provider}
+                                alt={el.name}
                                 width={50}
                                 height={50}
                                 className={

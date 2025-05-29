@@ -31,7 +31,7 @@ const Home = () => {
 
     const creators = getTopCreators(nfts)
     const topCreatorsArr = useMemo(() => {
-        let resArr = []
+        const resArr = []
         for (const [key, value] of Object.entries(creators)) {
             resArr.push({
                 seller: key,

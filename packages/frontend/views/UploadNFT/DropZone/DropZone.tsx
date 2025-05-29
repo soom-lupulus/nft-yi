@@ -19,18 +19,14 @@ type IDropZoneProps = {
     heading: string
     subHeading: string
     name: string
+    image: string
+    setImage: React.Dispatch<React.SetStateAction<string>>
 }
 const DropZone = ({
     title,
     heading,
     subHeading,
     name,
-    website,
-    description,
-    royalties,
-    fileSize,
-    category,
-    properties,
     image,
     setImage,
     uploadToIPFS,

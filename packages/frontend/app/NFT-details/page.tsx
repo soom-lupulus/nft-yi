@@ -1,12 +1,14 @@
 'use client'
-import React from 'react'
+import React, { Suspense } from 'react'
 //INTERNAL IMPORT
 import { Button, Category, Brand } from '@/components'
 import NFTDetailsPage from '@/views/NFTDetailsPage/NFTDetailsPage'
 const NFTDetails = () => {
     return (
         <div>
-            <NFTDetailsPage />
+            <Suspense>
+                <NFTDetailsPage />
+            </Suspense>
             {/* <Category /> */}
             <Brand />
         </div>

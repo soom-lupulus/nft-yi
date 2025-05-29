@@ -5,7 +5,7 @@ import { MdVerified } from 'react-icons/md'
 //INTERNAL IMPORT
 import Style from './DaysComponents.module.css'
 import images from '@/img'
-import { ImageType } from '../Collection'
+import { ImageType } from '@/typings/global'
 
 type IDaysComponentsPropsType = {
     el: ImageType

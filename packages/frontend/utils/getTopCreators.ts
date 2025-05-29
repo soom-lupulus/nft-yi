@@ -1,4 +1,4 @@
-import { NFTInfoType } from "@/context/NFTMarketplaceContext";
+import { NFTInfoType } from "@/context/typing";
 
 /**
  * 计算用户中当前正在售卖的NFT，总量价值最高的用户

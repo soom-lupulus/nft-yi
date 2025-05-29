@@ -137,8 +137,8 @@ const UploadNFT = ({ uploadToIPFS, createNFT }: IUploadNFTProps) => {
                     <textarea
                         name=''
                         id=''
-                        cols='30'
-                        rows='6'
+                        cols={30}
+                        rows={6}
                         placeholder='something about yourself in few words'
                         onChange={e => setDescription(e.target.value)}
                     ></textarea>

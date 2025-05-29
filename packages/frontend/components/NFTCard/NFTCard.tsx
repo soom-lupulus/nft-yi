@@ -6,7 +6,7 @@ import Image from 'next/image'
 //
 import Style from './NFTCard.module.css'
 import images from '@/img'
-import { NFTInfoType } from '@/context/NFTMarketplaceContext'
+import { NFTInfoType } from '@/context/typing'
 import Link from 'next/link'
 
 const NFTCard = ({ NFTData }: { NFTData: NFTInfoType[] }) => {

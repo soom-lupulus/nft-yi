@@ -11,7 +11,7 @@ import { NFTCardTwo, Banner } from '@/views/collectionPage/collectionIndex'
 import images from '@/img'
 import useFetchNFTs from '@/hooks/useFetchNFTs'
 
-const searchPage = () => {
+const SearchPage = () => {
     const { nfts, filterNFTsByName, isLoading } = useFetchNFTs()
 
     return (
@@ -32,4 +32,4 @@ const searchPage = () => {
     )
 }
 
-export default searchPage
+export default SearchPage

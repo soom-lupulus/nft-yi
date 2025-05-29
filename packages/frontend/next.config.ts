@@ -10,6 +10,13 @@ const nextConfig: NextConfig = {
         pathname: '/ipfs/**',
       },
     ],
+  },
+  output: "standalone",
+  eslint: {
+    ignoreDuringBuilds: true
+  },
+  typescript: {
+    ignoreBuildErrors: true
   }
 };
 

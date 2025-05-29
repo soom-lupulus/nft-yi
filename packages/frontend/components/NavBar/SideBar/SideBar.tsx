@@ -23,7 +23,7 @@ type IPropTypes = {
     setOpenSideMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const sideBar = ({ setOpenSideMenu }: IPropTypes) => {
+const SideBar = ({ setOpenSideMenu }: IPropTypes) => {
     const { connectWallect, currentAccount } = useContext(NFTMarketplaceContext)
     const [openDiscover, setOpenDiscover] = useState(false)
     const [openHelp, setOpenHelp] = useState(false)
@@ -190,4 +190,4 @@ const sideBar = ({ setOpenSideMenu }: IPropTypes) => {
     )
 }
 
-export default sideBar
+export default SideBar

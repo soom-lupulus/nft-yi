@@ -36,22 +36,24 @@ const Slider = () => {
         },
     ]
     const [width, setWidth] = useState(0)
-    const dragSlider = useRef()
+    const dragSlider = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        setWidth(
-            dragSlider.current.scrollWidth - dragSlider.current.offsetWidth,
-        )
-    })
+        if (dragSlider.current) {
+            setWidth(
+                dragSlider.current.scrollWidth - dragSlider.current.offsetWidth,
+            )
+        }
+    }, [])
 
-    const handleScroll = direction => {
+    const handleScroll = (direction: string) => {
         const { current } = dragSlider
         const scrollAmount = window.innerWidth > 1800 ? 270 : 210
 
         if (direction == 'left') {
-            current.scrollLeft -= scrollAmount
+            current!.scrollLeft -= scrollAmount
         } else {
-            current.scrollLeft += scrollAmount
+            current!.scrollLeft += scrollAmount
         }
     }
 

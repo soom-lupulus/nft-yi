@@ -8,7 +8,16 @@ import { TiTick } from 'react-icons/ti'
 import Style from './FollowerTabCard.module.css'
 import images from '@/img'
 
-const FollowerTabCard = ({ i, el }) => {
+const FollowerTabCard = ({
+    i,
+    el,
+}: {
+    i: number
+    el: {
+        seller: string
+        totalETHs: number
+    }
+}) => {
     const [following, setFollowing] = useState(false)
 
     const followMe = () => {

@@ -5,7 +5,7 @@ import { ClipLoader } from 'react-spinners'
 
 type IButtonTypes = {
     btnName: string
-    handleClick: (e: any) => void
+    handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void
     classStyle?: string
 }
 
@@ -33,6 +33,7 @@ const Button = forwardRef<ButtonHandle, IButtonTypes>(
     },
 )
 
+
 const ClipLoading = () => {
     return (
         <div>
@@ -45,5 +46,7 @@ const ClipLoading = () => {
         </div>
     )
 }
+
+Button.displayName = 'Button';
 
 export default Button
